@@ -588,13 +588,16 @@ class LieGNN(nn.Module, metaclass=Named):
         [liftsamples] number of samples to use in lifting.
                       1 for groups with trivial stabiliser
         [group] group to be equivariant to
+        [nbhd] 0 if the graph should be fully connected,
+                otherwise indicate the degree of each node
  
         Not used: [Fill], [nbhd], [ds_frac], [bn]
     """
     def __init__(self, chin, num_outputs=1, k=1536, 
                  bn=True, num_layers=6, mean=True, 
                  per_point=True, pool=True, liftsamples=1, 
-                group=SE3, gnn_layer=LieGNNSimpleConv, **kwargs):
+                 group=SE3, gnn_layer=LieGNNSimpleConv,
+                 nbhd=0, **kwargs):
         super().__init__()
 
         # Layers in the network:
@@ -606,6 +609,7 @@ class LieGNN(nn.Module, metaclass=Named):
         self.liftsamples = liftsamples
 
         self.group = group
+        self.nbhd_size = nbhd
 
     def build_graph(self, x, lifted_x):
         """
@@ -631,11 +635,38 @@ class LieGNN(nn.Module, metaclass=Named):
             edge_pairs = torch.combinations(nodes)
             # Reflect each edge (as we need them in both directions)
             edge_pairs = torch.concat(
-                    [edge_pairs, deepcopy(edge_pairs)[[1, 0]]], dim=0) \
+                    [edge_pairs, deepcopy(edge_pairs)[:, [1, 0]]], dim=0) \
                     .transpose(0, 1)
+            # Extract only N nearest points
+            if self.nbhd_size > 0:
+                # Set up a mask to only selected edges to/from non-masked points
+                mask = torch.ones(curr_mask.shape[0], curr_mask.shape[0], 
+                        dtype=torch.bool, device=vals.device)
+                mask[edge_pairs[0], edge_pairs[1]] = 0
+                # Set distance to masked points as inf
+                distances[batch_idx][mask] = float('inf')
+                # Find closest neighbours to each point
+                ord_dist, ord_idx = torch.topk(distances[batch_idx], dim=-1, 
+                        largest=False, k=self.nbhd_size) 
+                # Convert to the edge format
+                # Extract all the indices
+                rows_idx = torch.repeat_interleave(
+                        torch.arange(0, curr_mask.shape[0], device=vals.device), self.nbhd_size) 
+                cols_idx = torch.arange(0, self.nbhd_size, 
+                        device=vals.device).repeat(curr_mask.shape[0])
+                # Filter out indices that are masked
+                cols_idx = cols_idx[torch.isin(rows_idx, nodes)]
+                rows_idx = rows_idx[torch.isin(rows_idx, nodes)]
+                
+                # Have unidirected edges to n closest neighbours for each row
+                edge_pairs = torch.stack([
+                    rows_idx,
+                    ord_idx[rows_idx, cols_idx].flatten()])
+
             # Use the pairs to extract distances
             edge_attr = distances[batch_idx][edge_pairs[0], 
                     edge_pairs[1]][:, None]
+
             graph = torch_geometric.data.Data(
                 x=vals[batch_idx], 
                 edge_index=edge_pairs,
@@ -678,10 +709,10 @@ class ImgLieGNN(LieGNN):
     LieGNN architecture applied to images
     """
     def __init__(self, chin=1, num_layers=6, group=T(2), 
-                 num_targets=10, k=256, **kwargs):
+                 num_targets=10, k=256, nbhd=0, **kwargs):
         super().__init__(chin=chin, num_layers=num_layers, 
                          group=group, k=k, num_outputs=num_targets,
-                         **kwargs)
+                         nbhd=nbhd, **kwargs)
         self.lifted_coords = None
 
     def forward(self, x, coord_transform=None):
