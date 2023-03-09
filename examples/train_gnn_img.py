@@ -2,6 +2,7 @@ import torch
 import torch_geometric
 from copy import deepcopy
 import time
+from tqdm import tqdm
 
 from torch.utils.data import DataLoader
 from oil.utils.utils import LoaderTo, cosLr, islice
@@ -69,7 +70,7 @@ def makeGraph(x, y, group, nbhd_size, liftsamples):
         x=vals, 
         edge_index=edge_pairs,
         edge_attr=edge_attr,
-        y=y)
+        y=torch.tensor(y)[None])
 
     return graph
 
@@ -112,25 +113,30 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
                              splits=split)
     datasets['test'] = dataset(f'~/datasets/{dataset}/', train=False)
     graph_data = {}
+
+    print("Converting to graphs, this might take a while...")
     # Convert the datasets to graphs:
     for split, data in datasets.items():
+        print(f"Converting split {split}")
         if split == 'test' and small_test:
             # have to manually limit size
             data = [data[idx] for idx in range(64)]
         graph_data[split]  = [prepareImgToGraph(data[idx], net_config['group'], 
                                   net_config['nbhd'], net_config['liftsamples']) 
-                for idx in range(len(data))]
+                for idx in tqdm(range(len(data)))]
+    print("Done converting to graphs!\n")
 
     device = torch.device(device)
     model = network(num_targets=datasets['train'].num_targets,
                     **net_config).to(device)
     model, bs = try_multigpu_parallelize(model,bs)
     dataloaders = {
-            k:
-                torch_geometric.loader.DataLoader(v,batch_size=bs, shuffle=(k=='train'),
-                num_workers=0,pin_memory=False)
-                for k,v in graph_data.items()}
-    print(next(iter(dataloaders['train'])))
+            k: LoaderTo(
+                torch_geometric.loader.DataLoader(
+                    v,batch_size=bs,shuffle=(k=='train'), 
+                    num_workers=0,pin_memory=False),
+                device) for k,v in graph_data.items()
+            }
     dataloaders['Train'] = islice(dataloaders['train'],
                                   1+len(dataloaders['train'])//10)
     if small_test: 

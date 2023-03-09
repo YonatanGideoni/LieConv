@@ -1,0 +1,3 @@
+[submodule "olive-oil-ml"]
+	path = olive-oil-ml
+	url = https://github.com/mfinzi/olive-oil-ml.git
