@@ -588,13 +588,16 @@ class LieGNN(nn.Module, metaclass=Named):
         [liftsamples] number of samples to use in lifting.
                       1 for groups with trivial stabiliser
         [group] group to be equivariant to
+        [nbhd] 0 if the graph should be fully connected,
+                otherwise indicate the degree of each node
  
         Not used: [Fill], [nbhd], [ds_frac], [bn]
     """
     def __init__(self, chin, num_outputs=1, k=1536, 
                  bn=True, num_layers=6, mean=True, 
                  per_point=True, pool=True, liftsamples=1, 
-                group=SE3, gnn_layer=LieGNNSimpleConv, **kwargs):
+                 group=SE3, gnn_layer=LieGNNSimpleConv,
+                 nbhd=0, **kwargs):
         super().__init__()
 
         # Layers in the network:
@@ -606,6 +609,7 @@ class LieGNN(nn.Module, metaclass=Named):
         self.liftsamples = liftsamples
 
         self.group = group
+        self.nbhd_size = nbhd
 
     def forward(self, graph):
         # result: (pair_abq(), function values, mask)
@@ -630,10 +634,10 @@ class ImgLieGNN(LieGNN):
     LieGNN architecture applied to images
     """
     def __init__(self, chin=1, num_layers=6, group=T(2), 
-                 num_targets=10, k=256, **kwargs):
+                 num_targets=10, k=256, nbhd=0, **kwargs):
         super().__init__(chin=chin, num_layers=num_layers, 
                          group=group, k=k, num_outputs=num_targets,
-                         **kwargs)
+                         nbhd=nbhd, **kwargs)
         self.lifted_coords = None
 
     def forward(self, x, coord_transform=None):

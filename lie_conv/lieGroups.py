@@ -77,8 +77,8 @@ class LieGroup(object, metaclass=Named):
         # convert from elems to pairs, get matrix of all possible combinations of elements v
         paired_a = self.elems2pairs(expanded_a)  # (bs,n*ns,d) -> (bs,n*ns,n*ns,d)
         if expanded_q is not None:
-            q_in = expanded_q.unsqueeze(-2).expand(*paired_a.shape[:-1], 1)
-            q_out = expanded_q.unsqueeze(-3).expand(*paired_a.shape[:-1], 1)
+            q_in = expanded_q.unsqueeze(-2).expand(*paired_a.shape[:-1], self.q_dim)
+            q_out = expanded_q.unsqueeze(-3).expand(*paired_a.shape[:-1], self.q_dim)
             embedded_locations = torch.cat([paired_a, q_in, q_out], dim=-1)
         else:
             embedded_locations = paired_a
@@ -663,3 +663,23 @@ class Trivial(LieGroup):
     #     qa = abq_pairs[...,:self.q_dim]
     #     qb = abq_pairs[...,self.q_dim:]
     #     return norm(qa-qb,dim=-1)
+
+
+@export
+class Reflections(LieGroup):
+    def __init__(self, k):
+        """ Returns the k dimensional reflection group (sign of element on each axis). Assumes lifting from R^k"""
+        super().__init__()
+        self.q_dim = k  # X/G is the element's values in the first quadrant
+        self.rep_dim = k  # dimension on which G acts
+        self.lie_dim = k  # dimension that g is embedded into
+
+    def lifted_elems(self, xyz, nsamples, **kwargs):
+        assert nsamples == 1, "Abelian group, no need for nsamples"
+        return torch.sign(xyz), torch.abs(xyz)
+
+    # TODO - verify that this indeed makes sense and is consistent with what it should be,
+    #  taken from translation group
+    def elems2pairs(self, a):
+        deltas = a.unsqueeze(-2) - a.unsqueeze(-3)
+        return deltas
