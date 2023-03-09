@@ -611,96 +611,21 @@ class LieGNN(nn.Module, metaclass=Named):
         self.group = group
         self.nbhd_size = nbhd
 
-    def build_graph(self, x, lifted_x):
-        """
-            Build a Graph to be used in this GNN
-            use the lifted samples, with the distance
-            as edge features and given values as node features
-
-            Initially: Build a fully connected graph
-            Later on: Use a neighbourhood
-        """
-        (_, vals, mask) = x
-        # (bs, n, d) -> (bs, n, n, d)
-        distances = [self.group.distance(batch_x) 
-                     for batch_x in lifted_x] 
-
-        # only have edges between nodes where mask is true for both
-        batch = []
-        for batch_idx, curr_mask in enumerate(mask):
-            start = time.time()
-            # Returns list of nodes that are non-zero, i.e not masked
-            nodes = torch.nonzero(curr_mask)[:, 0]
-            # Get all possible combinations of nodes: [combs_cnt, 2]
-            edge_pairs = torch.combinations(nodes)
-            # Reflect each edge (as we need them in both directions)
-            edge_pairs = torch.concat(
-                    [edge_pairs, deepcopy(edge_pairs)[:, [1, 0]]], dim=0) \
-                    .transpose(0, 1)
-            # Extract only N nearest points
-            if self.nbhd_size > 0:
-                # Set up a mask to only selected edges to/from non-masked points
-                mask = torch.ones(curr_mask.shape[0], curr_mask.shape[0], 
-                        dtype=torch.bool, device=vals.device)
-                mask[edge_pairs[0], edge_pairs[1]] = 0
-                # Set distance to masked points as inf
-                distances[batch_idx][mask] = float('inf')
-                # Find closest neighbours to each point
-                ord_dist, ord_idx = torch.topk(distances[batch_idx], dim=-1, 
-                        largest=False, k=self.nbhd_size) 
-                # Convert to the edge format
-                # Extract all the indices
-                rows_idx = torch.repeat_interleave(
-                        torch.arange(0, curr_mask.shape[0], device=vals.device), self.nbhd_size) 
-                cols_idx = torch.arange(0, self.nbhd_size, 
-                        device=vals.device).repeat(curr_mask.shape[0])
-                # Filter out indices that are masked
-                cols_idx = cols_idx[torch.isin(rows_idx, nodes)]
-                rows_idx = rows_idx[torch.isin(rows_idx, nodes)]
-                
-                # Have unidirected edges to n closest neighbours for each row
-                edge_pairs = torch.stack([
-                    rows_idx,
-                    ord_idx[rows_idx, cols_idx].flatten()])
-
-            # Use the pairs to extract distances
-            edge_attr = distances[batch_idx][edge_pairs[0], 
-                    edge_pairs[1]][:, None]
-
-            graph = torch_geometric.data.Data(
-                x=vals[batch_idx], 
-                edge_index=edge_pairs,
-                edge_attr=edge_attr)
-            batch.append(graph)
-
-        # Create data loader with that batch:
-        loader = torch_geometric.loader.DataLoader(
-            batch,
-            batch_size=len(batch),
-            shuffle=False)
-        
-        assert len(loader) == 1 
-        return next(iter(loader))
-
-    def forward(self, x):
+    def forward(self, graph):
         # result: (pair_abq(), function values, mask)
         # between all lifted samples
         # already returned as lie algebra arguments (log(u))
         # pairs_abq: (bs, n, n)
         # vals: (bs, n, cin)
-        lifted_x = self.group.lift(x, self.liftsamples)
+        x = self.emb_layer(graph.x)
         
-        # Now build the fully connected graph between all pixels
-        graph = self.build_graph(x, lifted_x[0]) 
-        
-        graph.x = self.emb_layer(graph.x)
         # Apply the network:
         for layer in self.net:
-            graph.x = layer(x=graph.x, 
-                            edge_index=graph.edge_index,
-                            edge_attr=graph.edge_attr)
+            x = layer(x=x, 
+                      edge_index=graph.edge_index,
+                      edge_attr=graph.edge_attr)
         res = self.final_layer(
-                torch_geometric.nn.global_mean_pool(graph.x, graph.batch))
+                torch_geometric.nn.global_mean_pool(x, graph.batch))
         return res
 
 @export
@@ -717,29 +642,6 @@ class ImgLieGNN(LieGNN):
 
     def forward(self, x, coord_transform=None):
         """ assumes x is a regular image: (bs,c,h,w)"""
-        bs, c, h, w = x.shape
-
-        # Construct coordinate grid
-        i = torch.linspace(-h / 2., h / 2., h)
-        j = torch.linspace(-w / 2., w / 2., w)
-        coords = torch.stack(torch.meshgrid([i, j]), dim=-1).float()
-        
-        # Perform center crop
-        # crop out corners (filled only with zeros)
-        center_mask = coords.norm(dim=-1) < 15.
-        coords = coords[center_mask] \
-                .view(-1, 2).unsqueeze(0).repeat(bs, 1, 1).to(x.device)
-        if coord_transform is not None:
-            coords = coord_transform(coords)
-        values = x.permute(0, 2, 3, 1)[:, center_mask, :] \
-                .reshape(bs, -1, c)
-        
-        # all true
-        mask = torch.ones(bs, values.shape[1], device=x.device) > 0  
-        
-        # new object to operate on:
-        z = (coords, values, mask)
-        
         # Call the parent class that holds the actual GNN
-        return super().forward(z)
+        return super().forward(x)
 
