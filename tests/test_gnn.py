@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
@@ -39,12 +40,26 @@ from oil.utils.utils import LoaderTo
 def shift_x(coords):
     coords[1, :, 0] += 1  # shift x by 1
 
+    return coords
+
 
 def reflect_all(coords):
     coords[1] *= -1
 
+    return coords
 
-def test_gnn_conv_equivariance(groups_and_trans: tuple = ((T(2), shift_x), (Trivial(), shift_x)), bs: int = 2,
+
+def get_rot_mat(angle):
+    return torch.Tensor([[np.cos(angle), -np.sin(angle)],
+                         [np.sin(angle), np.cos(angle)]])
+
+
+def rotate(coords, rot_ang: float = np.pi / 3):
+    rot_mat = get_rot_mat(rot_ang)
+    return torch.einsum('ij,klj->kli', rot_mat, coords)
+
+
+def test_gnn_conv_equivariance(groups_and_trans: tuple = ((SO2(.05), rotate), (Trivial(), rotate)), bs: int = 3,
                                device='cpu', h: int = 10, w: int = 10, liftsamples: int = 1, n_mc_samples: int = 25,
                                ds_frac: float = 1., fill: float = 1., nbhd_size: int = 25, conv_layer=LieGNNSimpleConv):
     device = torch.device(device)
@@ -60,7 +75,7 @@ def test_gnn_conv_equivariance(groups_and_trans: tuple = ((T(2), shift_x), (Triv
         mask = torch.ones(bs, values.shape[1], device=device) > 0
 
         orig_graph = makeGraph((coords, values, mask), 1, group, nbhd_size=nbhd_size, liftsamples=liftsamples)
-        trans(coords)
+        coords = trans(coords)
         transf_graph = makeGraph((coords, values, mask), 1, group, nbhd_size=nbhd_size, liftsamples=liftsamples)
 
         # LieGNNSimpleConv only needs first two params
@@ -74,7 +89,7 @@ def test_gnn_conv_equivariance(groups_and_trans: tuple = ((T(2), shift_x), (Triv
                                       edge_index=transf_graph.edge_index,
                                       edge_attr=transf_graph.edge_attr)
 
-        assert (orig_res == transf_res).all(), f'Error - layer is not equivariant! Group - {group}'
+        assert torch.isclose(orig_res, transf_res).all(), f'Error - layer is not equivariant! Group - {group}'
 
 
 if __name__ == "__main__":
