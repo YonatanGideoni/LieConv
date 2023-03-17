@@ -41,7 +41,7 @@ class LieGNNSimpleConv(MessagePassing):
         messages = torch.einsum("ij,ik->ij", x_i, edge_attr)
         return messages
     
-    def aggregate(self, inputs, index):
+    def aggregate(self, inputs, index, dim_size):
         """
         Aggregate messages from all neighbouring nodes
         
@@ -51,7 +51,8 @@ class LieGNNSimpleConv(MessagePassing):
         aggr_out = scatter(inputs,
                            index,
                            dim=self.node_dim, 
-                           reduce=self.aggr) 
+                           reduce=self.aggr,
+                           dim_size=dim_size) # dim_size to ensure even nodes are padded,, we return same size 
         return aggr_out
 
     def update(self, aggr_out):
