@@ -20,14 +20,14 @@ from lie_conv.lieConv import ImgLieGNN
 from lie_conv.datasets import MnistRotDataset
 
 def makeGraph(x, y, group, nbhd_size, liftsamples):
+    assert x[0].shape[0] == 1 # this only works for a batch of 1
     lifted_x = group.lift(x, liftsamples)
-
+    
     (_, vals, curr_mask) = x
     vals = vals[0]
     curr_mask = curr_mask[0]
     # (n, d) -> ( n, n, d)
     distances = group.distance(lifted_x[0])[0]
-
     # Returns list of nodes that are non-zero, i.e not masked
     nodes = torch.nonzero(curr_mask)[:, 0]
     # Get all possible combinations of nodes: [combs_cnt, 2]
@@ -79,7 +79,6 @@ def prepareImgToGraph(data, group, nbhd, liftsamples):
     x = x[None, :]
 
     bs, c, h, w = x.shape
-
     # Construct coordinate grid
     i = torch.linspace(-h / 2., h / 2., h)
     j = torch.linspace(-w / 2., w / 2., w)
@@ -98,7 +97,6 @@ def prepareImgToGraph(data, group, nbhd, liftsamples):
     
     # new object to operate on:
     z = (coords, values, mask)
-
     return makeGraph(z, y, group, nbhd, liftsamples)  
 
 def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN, 
