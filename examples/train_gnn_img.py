@@ -12,6 +12,7 @@ from oil.utils.parallel import try_multigpu_parallelize
 from oil.model_trainers.classifier import Classifier
 from functools import partial
 from torch.optim import Adam
+from torch_geometric.utils import to_undirected
 from oil.tuning.args import argupdated_config
 import copy
 import lie_conv.lieGroups as lieGroups
@@ -65,13 +66,13 @@ def makeGraph(x, y, group, nbhd_size, liftsamples):
     # Use the pairs to extract distances
     edge_attr = distances[edge_pairs[0], 
             edge_pairs[1]][:, None]
-
+    edge_pairs, edge_attr = to_undirected(edge_pairs, edge_attr, 
+            reduce='mean')
     graph = torch_geometric.data.Data(
         x=vals, 
         edge_index=edge_pairs,
         edge_attr=edge_attr,
         y=torch.tensor(y)[None])
-
     return graph
 
 def prepareImgToGraph(data, group, nbhd, liftsamples):
