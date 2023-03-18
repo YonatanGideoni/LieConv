@@ -577,6 +577,29 @@ class ImgGCNLieResnet(ImgLieResnet):
                          conv_layer=lambda *args, **kwargs: LieConvGCN(*args, n_layers=gnn_recep_field, **kwargs),
                          **kwargs)
 
+class LieGNNBottleBlock(nn.Module, metaclass=Named):
+    def __init__(self, gnn_conv_layer, chin, chout):
+        super().__init__()
+        self.pre_conv_layers = nn.Sequential(
+            nn.BatchNorm1d(chin),
+            nn.ReLU(),
+            nn.Linear(chin, chin // 4),
+            nn.BatchNorm1d(chin // 4),
+            nn.ReLU(),
+        )
+        self.gnn_layer = gnn_conv_layer(chin // 4, chout // 4)
+        # would have downsample
+        self.post_conv_layers = nn.Sequential(
+            nn.BatchNorm1d(chout // 4),
+            nn.ReLU(),
+            nn.Linear(chout // 4, chout)
+        )
+    def forward(self, x, edge_attr, edge_index):
+        x = self.pre_conv_layers(x)
+        x = self.gnn_layer(x, edge_attr=edge_attr, edge_index=edge_index)
+        x = self.post_conv_layers(x)
+        return x
+
 @export
 class LieGNN(nn.Module, metaclass=Named):
     """
@@ -601,11 +624,14 @@ class LieGNN(nn.Module, metaclass=Named):
         super().__init__()
 
         # Layers in the network:
-        conv = lambda ki, ko: gnn_layer(ki, ko, **kwargs)
+        conv = lambda ki, ko: LieGNNBottleBlock(gnn_layer, ki, ko, **kwargs)
         self.emb_layer = nn.Linear(chin, k)
         self.net = nn.ModuleList([conv(k, k) for i in range(num_layers)])
-        self.final_layer = nn.Linear(k, num_outputs)
-
+        self.final_layer = nn.Sequential(
+            nn.BatchNorm1d(k),
+            nn.ReLU(),
+            nn.Linear(k, num_outputs)
+        )
         self.liftsamples = liftsamples
 
         self.group = group
@@ -624,8 +650,10 @@ class LieGNN(nn.Module, metaclass=Named):
             x = layer(x=x, 
                       edge_index=graph.edge_index,
                       edge_attr=graph.edge_attr)
-        res = self.final_layer(
-                torch_geometric.nn.global_mean_pool(x, graph.batch))
+        
+        res = torch_geometric.nn.global_mean_pool(
+                self.final_layer(x),
+                graph.batch)
         return res
 
 @export

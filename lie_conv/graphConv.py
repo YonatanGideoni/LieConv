@@ -23,9 +23,11 @@ class LieGNNSimpleConv(MessagePassing):
         
         self.mlp = nn.Sequential(
             nn.Linear(c_in, hidden_dim), 
-            nn.BatchNorm1d(hidden_dim), nn.ReLU(),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.ReLU(),
             nn.Linear(hidden_dim, c_out), 
-            nn.BatchNorm1d(c_out), nn.ReLU()
+            nn.ReLU()
         ) 
     
     def forward(self, x, edge_index, edge_attr):
@@ -62,6 +64,16 @@ class LieGNNSimpleConv(MessagePassing):
         """
         return self.mlp(aggr_out)
 
-class LieConvMPGNN(MessagePassing):
-    def __int__(self):
-        pass
+class LieConvGCN(LieGNNSimpleConv):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.mlp_msg = Sequential(
+            Linear(2*emb_dim + edge_dim, emb_dim), BatchNorm1d(emb_dim), ReLU(),
+            Linear(emb_dim, emb_dim), BatchNorm1d(emb_dim), ReLU()
+          )
+
+    def message(self, x_i, x_j, edge_attr):
+        embedded_edge_attr = self.mlp_msg(edge_attr)
+        messages = torch.einsum("ij,ik->ij", x_i, edge_attr)
+        return messages
