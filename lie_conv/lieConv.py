@@ -18,6 +18,7 @@ such as for computing a swish nonlinearity on values.
 
 import torch
 import torch.nn as nn
+from torchsummary import summary
 import torch.nn.functional as F
 import torch_geometric
 import numpy as np
@@ -580,6 +581,7 @@ class ImgGCNLieResnet(ImgLieResnet):
 class LieGNNBottleBlock(nn.Module, metaclass=Named):
     def __init__(self, gnn_conv_layer, chin, chout):
         super().__init__()
+        self.chin, self.chout = chin, chout
         self.pre_conv_layers = nn.Sequential(
             nn.BatchNorm1d(chin),
             nn.ReLU(),
@@ -595,10 +597,11 @@ class LieGNNBottleBlock(nn.Module, metaclass=Named):
             nn.Linear(chout // 4, chout)
         )
     def forward(self, x, edge_attr, edge_index):
-        x = self.pre_conv_layers(x)
-        x = self.gnn_layer(x, edge_attr=edge_attr, edge_index=edge_index)
-        x = self.post_conv_layers(x)
-        return x
+        new_x = self.pre_conv_layers(x)
+        new_x = self.gnn_layer(new_x, edge_attr=edge_attr, edge_index=edge_index)
+        new_x = self.post_conv_layers(new_x)
+        new_x[:, :self.chin] += x
+        return new_x
 
 @export
 class LieGNN(nn.Module, metaclass=Named):
@@ -644,7 +647,6 @@ class LieGNN(nn.Module, metaclass=Named):
         # pairs_abq: (bs, n, n)
         # vals: (bs, n, cin)
         x = self.emb_layer(graph.x)
-        
         # Apply the network:
         for layer in self.net:
             x = layer(x=x, 

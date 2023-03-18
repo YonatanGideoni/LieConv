@@ -19,6 +19,7 @@ import lie_conv.lieGroups as lieGroups
 import lie_conv.lieConv as lieConv
 from lie_conv.lieConv import ImgLieGNN
 from lie_conv.datasets import MnistRotDataset
+import lie_conv.graphConv as graphConv
 
 def makeGraph(x, y, group, nbhd_size, liftsamples):
     assert x[0].shape[0] == 1 # this only works for a batch of 1
@@ -27,7 +28,7 @@ def makeGraph(x, y, group, nbhd_size, liftsamples):
     (_, vals, curr_mask) = x
     vals = vals[0]
     curr_mask = curr_mask[0]
-    # (n, d) -> ( n, n, d)
+    # (n, d) -> ( n, n, d + q_i,q_j)
     distances = group.distance(lifted_x[0])[0]
     # Returns list of nodes that are non-zero, i.e not masked
     nodes = torch.nonzero(curr_mask)[:, 0]
@@ -112,7 +113,6 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
                              splits=split)
     datasets['test'] = dataset(f'~/datasets/{dataset}/', train=False)
     graph_data = {}
-
     print("Converting to graphs, this might take a while...")
     # Convert the datasets to graphs:
     for split, data in datasets.items():
@@ -124,6 +124,7 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
                                   net_config['nbhd'], net_config['liftsamples']) 
                 for idx in tqdm(range(len(data)))]
     print("Done converting to graphs!\n")
+    graph_data['test'] = deepcopy(graph_data['train'])
 
     device = torch.device(device)
     model = network(num_targets=datasets['train'].num_targets,
@@ -141,7 +142,6 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
     if small_test: 
         dataloaders['test'] = islice(dataloaders['test'],
                                      1+len(dataloaders['train'])//10)
-
     # Add some extra defaults if SGD is chosen
     opt_constr = partial(optim, lr=lr, **opt_config)
     lr_sched = cosLr(num_epochs)
@@ -152,4 +152,4 @@ if __name__=="__main__":
     Trial = train_trial(makeTrainer)
     defaults = copy.deepcopy(makeTrainer.__kwdefaults__)
     defaults['save'] = False
-    Trial(argupdated_config(defaults,namespace=(lieConv,lieGroups)))
+    Trial(argupdated_config(defaults,namespace=(lieConv,lieGroups,graphConv)))

@@ -5,8 +5,9 @@ import torch.nn as nn
 import torch_geometric as pyg
 from torch_geometric.nn import MessagePassing
 from torch_scatter import scatter
+from lie_conv.utils import Expression, export
 
-
+@export
 class LieGNNSimpleConv(MessagePassing):
     """
         Perform simple equivariant convolution:
@@ -19,14 +20,16 @@ class LieGNNSimpleConv(MessagePassing):
     def __init__(self, c_in, c_out, hidden_dim=None, agg='add', **kwargs):
         super().__init__(aggr=agg)
         if hidden_dim is None:
-            hidden_dim = c_out
-        
+            self.hidden_dim = c_out
+        else:
+            self.hidden_dim = hidden_dim
+
         self.mlp = nn.Sequential(
-            nn.Linear(c_in, hidden_dim), 
+            nn.Linear(c_in, self.hidden_dim), 
             nn.ReLU(),
-            nn.Linear(hidden_dim, hidden_dim),
+            nn.Linear(self.hidden_dim, self.hidden_dim),
             nn.ReLU(),
-            nn.Linear(hidden_dim, c_out), 
+            nn.Linear(self.hidden_dim, c_out), 
             nn.ReLU()
         ) 
     
@@ -64,14 +67,19 @@ class LieGNNSimpleConv(MessagePassing):
         """
         return self.mlp(aggr_out)
 
+@export
 class LieConvGCN(LieGNNSimpleConv):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, c_in, c_out, hidden_dim=None, agg='add', edge_dim=1, **kwargs):
+        super().__init__(c_in, c_out, hidden_dim, agg, **kwargs)
 
-        self.mlp_msg = Sequential(
-            Linear(2*emb_dim + edge_dim, emb_dim), BatchNorm1d(emb_dim), ReLU(),
-            Linear(emb_dim, emb_dim), BatchNorm1d(emb_dim), ReLU()
-          )
+        self.mlp_msg = nn.Sequential(
+            nn.Linear(edge_dim, self.hidden_dim), 
+            nn.ReLU(),
+            nn.Linear(self.hidden_dim, self.hidden_dim),
+            nn.ReLU(),
+            nn.Linear(self.hidden_dim, 1), 
+            nn.ReLU()
+        ) 
 
     def message(self, x_i, x_j, edge_attr):
         embedded_edge_attr = self.mlp_msg(edge_attr)
