@@ -3,6 +3,7 @@ import torch_geometric
 from copy import deepcopy
 import time
 from tqdm import tqdm
+from matplotlib.pyplot import imshow
 
 from torch.utils.data import DataLoader
 from oil.utils.utils import LoaderTo, cosLr, islice
@@ -25,9 +26,11 @@ def makeGraph(x, y, group, nbhd_size, liftsamples):
     assert x[0].shape[0] == 1 # this only works for a batch of 1
     lifted_x = group.lift(x, liftsamples)
     
-    (_, vals, curr_mask) = x
+    (coords, vals, curr_mask) = x
     vals = vals[0]
     curr_mask = curr_mask[0]
+    coords = coords[0]
+    orbits = lifted_x[0][0, :, 0, -2][:, None] # get the orbit of each element
     # (n, d) -> ( n, n, d + q_i,q_j)
     distances = group.distance(lifted_x[0])[0]
     # Returns list of nodes that are non-zero, i.e not masked
@@ -69,12 +72,33 @@ def makeGraph(x, y, group, nbhd_size, liftsamples):
             edge_pairs[1]][:, None]
     edge_pairs, edge_attr = to_undirected(edge_pairs, edge_attr, 
             reduce='mean')
+    # include information about the actual pixel coordinates
+    # as well as the orbit in the embedding
+    # TODO: extract the lie algebra elements
+    node_pos = torch.cat([coords, orbits], axis=-1)
+
     graph = torch_geometric.data.Data(
         x=vals, 
         edge_index=edge_pairs,
         edge_attr=edge_attr,
+        pos=node_pos,
         y=torch.tensor(y)[None])
     return graph
+
+def visualiseGraphImg(graph: torch_geometric.data.Data):
+    linspace_coords = graph.pos[:, :-1]
+    pix_vals = graph.x
+    i = linspace_coords[:, 0].unique()
+    j = linspace_coords[:, 1].unique()
+    i_map = dict(zip(i.tolist(), i.argsort().tolist()))
+    j_map  = dict(zip(j.tolist(), j.argsort().tolist()))
+
+    img = torch.zeros((i.shape[0], j.shape[0]))
+    get_coords = lambda coords: torch.tensor([i_map[coords[0]], j_map[coords[1]]])
+    img_coords = torch.stack([get_coords(c.tolist()) for c in linspace_coords])
+    
+    img[img_coords[:, 0], img_coords[:, 1]] = pix_vals[:, 0]
+    imshow(img)
 
 def prepareImgToGraph(data, group, nbhd, liftsamples):
     x, y = data
@@ -85,7 +109,6 @@ def prepareImgToGraph(data, group, nbhd, liftsamples):
     i = torch.linspace(-h / 2., h / 2., h)
     j = torch.linspace(-w / 2., w / 2., w)
     coords = torch.stack(torch.meshgrid([i, j]), dim=-1).float()
-    
     # Perform center crop
     # crop out corners (filled only with zeros)
     center_mask = coords.norm(dim=-1) < 15.
@@ -124,7 +147,8 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
                                   net_config['nbhd'], net_config['liftsamples']) 
                 for idx in tqdm(range(len(data)))]
     print("Done converting to graphs!\n")
-
+    
+    
     device = torch.device(device)
     model = network(num_targets=datasets['train'].num_targets,
                     **net_config).to(device)
