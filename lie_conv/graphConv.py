@@ -42,13 +42,13 @@ class LieGNNSimpleConv(MessagePassing):
         out = self.propagate(edge_index, x=x, edge_attr=edge_attr)
         return out
 
-    def message(self, x_i, edge_attr):
+    def message(self, x_j, edge_attr):
         """
-        x_i: (e, d_h) values at the source node i
+        x_j: (e, d_h) values at the source node i
         edge_attr: (e, d_e) edge attributes
         Calculate product of distance and hidden representations
         """
-        messages = torch.einsum("ij,ik->ij", x_i, edge_attr)
+        messages = torch.einsum("ij,ik->ij", x_j, edge_attr)
         return messages
 
     def aggregate(self, inputs, index, dim_size):
@@ -56,7 +56,7 @@ class LieGNNSimpleConv(MessagePassing):
         Aggregate messages from all neighbouring nodes
         
         inputs: (e, d_h) messages m_ij for each node
-        index: (e, 1) source nodes for each message
+        index: (e, 1) destination nodes for each message
         """
         aggr_out = scatter(inputs,
                            index,
