@@ -3,7 +3,7 @@ import torch_geometric
 from copy import deepcopy
 import time
 from tqdm import tqdm
-from matplotlib.pyplot import imshow
+from matplotlib import pyplot as plt
 
 from torch.utils.data import DataLoader
 from oil.utils.utils import LoaderTo, cosLr, islice
@@ -98,7 +98,8 @@ def visualiseGraphImg(graph: torch_geometric.data.Data):
     img_coords = torch.stack([get_coords(c.tolist()) for c in linspace_coords])
     
     img[img_coords[:, 0], img_coords[:, 1]] = pix_vals[:, 0]
-    imshow(img)
+    plt.imshow(img)
+    plt.show()
 
 def prepareImgToGraph(data, group, nbhd, liftsamples):
     x, y = data
@@ -147,7 +148,7 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
                                   net_config['nbhd'], net_config['liftsamples']) 
                 for idx in tqdm(range(len(data)))]
     print("Done converting to graphs!\n")
-    
+    #visualiseGraphImg(graph_data['train'][3])
     
     device = torch.device(device)
     model = network(num_targets=datasets['train'].num_targets,
