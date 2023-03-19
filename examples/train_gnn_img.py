@@ -124,7 +124,6 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
                                   net_config['nbhd'], net_config['liftsamples']) 
                 for idx in tqdm(range(len(data)))]
     print("Done converting to graphs!\n")
-    graph_data['test'] = deepcopy(graph_data['train'])
 
     device = torch.device(device)
     model = network(num_targets=datasets['train'].num_targets,
