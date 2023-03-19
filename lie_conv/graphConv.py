@@ -87,7 +87,7 @@ class LieConvGCN(LieGNNSimpleConv):
             nn.ReLU()
         )
 
-    def message(self, x_i, x_j, edge_attr):
+    def message(self, x_j, edge_attr):
         embedded_edge_attr = self.mlp_msg(edge_attr)
-        messages = torch.einsum("ij,ik->ij", x_i, edge_attr)
+        messages = torch.einsum("ij,ik->ij", x_j, edge_attr)
         return messages
