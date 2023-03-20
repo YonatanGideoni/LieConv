@@ -91,3 +91,66 @@ class LieConvGCN(LieGNNSimpleConv):
         embedded_edge_attr = self.mlp_msg(edge_attr)
         messages = torch.einsum("ij,ik->ij", x_j, edge_attr)
         return messages
+
+@export
+class LieConvMPGNN(MessagePassing):
+    def __init__(self, c_in, c_out, hidden_dim=None, agg='add', edge_dim=3, **kwargs):
+        super().__init__(aggr=agg)
+        if hidden_dim is None:
+            self.hidden_dim = c_out
+        else:
+            self.hidden_dim = hidden_dim
+        
+        self.mlp = nn.Sequential(
+            nn.Linear(c_out, self.hidden_dim),
+            nn.ReLU(),
+            nn.Linear(self.hidden_dim, self.hidden_dim),
+            nn.ReLU(),
+            nn.Linear(self.hidden_dim, c_out),
+            nn.ReLU()
+        )
+
+        self.mlp_edge = nn.Sequential(
+            nn.Linear(edge_dim, self.hidden_dim),
+            nn.ReLU(),
+            nn.Linear(self.hidden_dim, self.hidden_dim),
+            nn.ReLU(),
+            nn.Linear(self.hidden_dim, c_out),
+            nn.ReLU()
+        )
+
+    def forward(self, x, edge_index, edge_attr):
+        out = self.propagate(edge_index, x=x, edge_attr=edge_attr)
+        return out
+
+    def message(self, x_j, edge_attr):
+        """
+        x_j: (e, d_h) values at the source node i
+        edge_attr: (e, d_e) edge attributes
+        Calculate product of distance and hidden representations
+        """
+        messages = torch.einsum("ij,ik->ik", x_j, self.mlp_edge(edge_attr))
+        return messages
+
+    def aggregate(self, inputs, index, dim_size):
+        """
+        Aggregate messages from all neighbouring nodes
+        
+        inputs: (e, d_h) messages m_ij for each node
+        index: (e, 1) destination nodes for each message
+        """
+        aggr_out = scatter(inputs,
+                           index,
+                           dim=self.node_dim,
+                           reduce=self.aggr,
+                           dim_size=dim_size)  # dim_size to ensure even nodes are padded,, we return same size
+        return aggr_out
+
+    def update(self, aggr_out):
+        """
+        Apply MLP to the convolved values
+        aggr_out: (n, d_h) convolved values
+        """
+        return self.mlp(aggr_out)
+
+

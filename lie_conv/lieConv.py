@@ -583,7 +583,7 @@ class ImgGCNLieResnet(ImgLieResnet):
 
 
 class LieGNNBottleBlock(nn.Module, metaclass=Named):
-    def __init__(self, gnn_conv_layer, chin, chout):
+    def __init__(self, gnn_conv_layer, chin, chout, edge_dim):
         super().__init__()
         self.chin, self.chout = chin, chout
         self.pre_conv_layers = nn.Sequential(
@@ -593,7 +593,7 @@ class LieGNNBottleBlock(nn.Module, metaclass=Named):
             nn.BatchNorm1d(chin // 4),
             nn.ReLU(),
         )
-        self.gnn_layer = gnn_conv_layer(chin // 4, chout // 4)
+        self.gnn_layer = gnn_conv_layer(chin // 4, chout // 4, edge_dim=edge_dim)
         # would have downsample
         self.post_conv_layers = nn.Sequential(
             nn.BatchNorm1d(chout // 4),

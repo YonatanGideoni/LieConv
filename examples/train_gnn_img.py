@@ -22,17 +22,18 @@ from lie_conv.lieConv import ImgLieGNN
 from lie_conv.datasets import MnistRotDataset
 import lie_conv.graphConv as graphConv
 
-def makeGraph(x, y, group, nbhd_size, liftsamples):
+def makeGraph(x, y, group, nbhd_size, liftsamples, use_dist=True):
     assert x[0].shape[0] == 1 # this only works for a batch of 1
     lifted_x = group.lift(x, liftsamples)
     
     (coords, vals, curr_mask) = x
+    (pairs_abq, _, _) = lifted_x
     vals = vals[0]
     curr_mask = curr_mask[0]
     coords = coords[0]
-    orbits = lifted_x[0][0, :, 0, -2][:, None] # get the orbit of each element
+    orbits = pairs_abq[0, :, 0, -2][:, None] # get the orbit of each element
     # (n, d) -> ( n, n, d + q_i,q_j)
-    distances = group.distance(lifted_x[0])[0]
+    distances = group.distance(pairs_abq)[0]
     # Returns list of nodes that are non-zero, i.e not masked
     nodes = torch.nonzero(curr_mask)[:, 0]
     # Get all possible combinations of nodes: [combs_cnt, 2]
@@ -67,9 +68,13 @@ def makeGraph(x, y, group, nbhd_size, liftsamples):
             rows_idx,
             ord_idx[rows_idx, cols_idx].flatten()])
 
-    # Use the pairs to extract distances
-    edge_attr = distances[edge_pairs[0], 
-            edge_pairs[1]][:, None]
+    if use_dist:
+        # Use the pairs to extract distances
+        edge_attr = distances[edge_pairs[0], 
+                edge_pairs[1]][:, None]
+    else:
+        edge_attr = lifted_abq[edge_pairs[0],
+                edge_pairs[1]]
     edge_pairs, edge_attr = to_undirected(edge_pairs, edge_attr, 
             reduce='mean')
     # include information about the actual pixel coordinates
@@ -85,7 +90,7 @@ def makeGraph(x, y, group, nbhd_size, liftsamples):
         y=torch.tensor(y)[None])
     return graph
 
-def visualiseGraphImg(graph: torch_geometric.data.Data):
+def visualiseGraphImg(graph: torch_geometric.data.Data, nbhd_idx: int = None):
     linspace_coords = graph.pos[:, :-1]
     pix_vals = graph.x
     i = linspace_coords[:, 0].unique()
@@ -99,9 +104,18 @@ def visualiseGraphImg(graph: torch_geometric.data.Data):
     
     img[img_coords[:, 0], img_coords[:, 1]] = pix_vals[:, 0]
     plt.imshow(img)
+
+    if nbhd_idx is not None:
+        # show the neighbours for the given node
+        nodes = graph.edge_index[1, graph.edge_index[0, :] == nbhd_idx]
+        nbhd_coords = torch.stack([get_coords(linspace_coords[idx].tolist()) for idx in nodes])
+        overlay = torch.zeros_like(img)
+        transparency = torch.zeros_like(img)
+        transparency[nbhd_coords[:, 0], nbhd_coords[:, 1]] = 0.6
+        plt.imshow(overlay, alpha=transparency, cmap='autumn')
     plt.show()
 
-def prepareImgToGraph(data, group, nbhd, liftsamples):
+def prepareImgToGraph(data, group, nbhd, liftsamples, use_dist=True):
     x, y = data
     x = x[None, :]
 
@@ -123,14 +137,14 @@ def prepareImgToGraph(data, group, nbhd, liftsamples):
     
     # new object to operate on:
     z = (coords, values, mask)
-    return makeGraph(z, y, group, nbhd, liftsamples)  
+    return makeGraph(z, y, group, nbhd, liftsamples, use_dist)  
 
 def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN, 
                 num_epochs=100, bs=50, lr=3e-3, 
                 optim=Adam, device='cuda', trainer=Classifier,
                 split={'train':12000}, small_test=False, 
                 net_config={}, opt_config={},
-                trainer_config={'log_dir':None}):
+                trainer_config={'log_dir':None}, use_dist=True):
 
     # Prep the datasets splits, model, and dataloaders
     datasets = split_dataset(dataset(f'~/datasets/{dataset}/'),
@@ -144,15 +158,21 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
         if split == 'test' and small_test:
             # have to manually limit size
             data = [data[idx] for idx in range(64)]
-        graph_data[split]  = [prepareImgToGraph(data[idx], net_config['group'], 
-                                  net_config['nbhd'], net_config['liftsamples']) 
-                for idx in tqdm(range(len(data)))]
+        graph_data[split]  = [prepareImgToGraph(
+            data[idx], 
+            net_config['group'], net_config['nbhd'], 
+            net_config['liftsamples'], use_dist=use_dist) 
+            for idx in tqdm(range(len(data)))]
     print("Done converting to graphs!\n")
-    #visualiseGraphImg(graph_data['train'][3])
-    
+    #visualiseGraphImg(graph_data['train'][3], 500)
+
+    if use_dist:
+        net_config['edge_dim'] = 1
+    else:
+        net_config['edge_dim'] = net_config['group'].lie_dim + 2
     device = torch.device(device)
     model = network(num_targets=datasets['train'].num_targets,
-                    **net_config).to(device)
+            **net_config).to(device)
     model, bs = try_multigpu_parallelize(model,bs)
     dataloaders = {
             k: LoaderTo(
