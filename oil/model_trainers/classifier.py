@@ -51,6 +51,3 @@ class Regressor(Trainer):
             return nn.MSELoss()(preds[:, 0], y).cpu().data.numpy().mean()
 
         return {'MSE': self.evalAverageMetrics(loader, mse)}
-
-        # mse = lambda mb: nn.MSELoss()(self.model(mb[0]),mb[1]).cpu().data.numpy()
-        # return {'MSE':self.evalAverageMetrics(loader,mse)}
