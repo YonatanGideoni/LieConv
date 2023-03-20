@@ -32,6 +32,7 @@ from lie_conv.lieGroups import T, SO2, SO3, SE2, SE3, norm, LieGroup
 from lie_conv.masked_batchnorm import MaskBatchNormNd
 from lie_conv.graphConv import LieGNNSimpleConv
 
+
 @export
 def Swish():
     return Expression(lambda x: x * torch.sigmoid(x))
@@ -286,13 +287,13 @@ class LieConvGCN(LieConv):
     LieConv layer using GCN instead of MLP for convolution
     """
 
-    def __init__(self, 
-                 *args, 
-                 hidden_dim: int = None, 
-                 n_layers: int = 3, 
-                 use_dist = True, 
+    def __init__(self,
+                 *args,
+                 hidden_dim: int = None,
+                 n_layers: int = 3,
+                 use_dist=True,
                  **kwargs
-        ):
+                 ):
         """
         hidden_dim: int, size of hidden dim of the outside MLP
         n_layers: number of layers
@@ -305,16 +306,16 @@ class LieConvGCN(LieConv):
             self.edge_weights_dim = 1
         else:
             # use Lie Algebra elems
-            self.edge_weights_dim = self.group.lie_dim + 2 # +2 for the orbit
+            self.edge_weights_dim = self.group.lie_dim + 2  # +2 for the orbit
 
         if hidden_dim is None:
             hidden_dim = self.chout
         if n_layers == 1:
             self.layers = [
-                    nn.Linear(
-                        self.chin,
-                        self.chout
-                    )
+                nn.Linear(
+                    self.chin,
+                    self.chout
+                )
             ]
         else:
             self.layers = [nn.Linear(self.chin, hidden_dim)] + \
@@ -338,12 +339,12 @@ class LieConvGCN(LieConv):
         # 3) edge features -> abq
         # These can then be used to obtain node representation that is
         # equivalent to the convolved values of vals
-        
+
         # edge_feats: [batch_size, n, n, d]
         # where d is either num_generators + 2 (for orbits) 
         # or d=1 if using distances to convolve
         if self.use_dist:
-            edge_feats = self.group.distance(abq)[:,:,:,None]
+            edge_feats = self.group.distance(abq)[:, :, :, None]
         else:
             edge_feats = abq
         masked_vals = torch.where(mask.unsqueeze(-1), vals, torch.zeros_like(vals))
@@ -383,14 +384,15 @@ class LieConvGCN(LieConv):
         convolved_wzeros = torch.where(sub_mask.unsqueeze(-1), convolved_vals, torch.zeros_like(convolved_vals))
         return sub_abq, convolved_wzeros, sub_mask
 
+
 class LieConvGAT(LieConv):
-    def __init__(self, 
-                 *args, 
-                 hidden_dim: int = None, 
-                 n_layers: int = 3, 
-                 use_dist = True, 
+    def __init__(self,
+                 *args,
+                 hidden_dim: int = None,
+                 n_layers: int = 3,
+                 use_dist=True,
                  **kwargs
-        ):
+                 ):
         """
         hidden_dim: int, size of hidden dim of the outside MLP
         n_layers: number of layers
@@ -403,16 +405,16 @@ class LieConvGAT(LieConv):
             self.edge_weights_dim = 1
         else:
             # use Lie Algebra elems
-            self.edge_weights_dim = self.group.lie_dim + 2 # +2 for the orbit
+            self.edge_weights_dim = self.group.lie_dim + 2  # +2 for the orbit
 
         if hidden_dim is None:
             hidden_dim = self.chout
         if n_layers == 1:
             self.layers = [
-                    nn.Linear(
-                        self.chin,
-                        self.chout
-                    )
+                nn.Linear(
+                    self.chin,
+                    self.chout
+                )
             ]
         else:
             self.layers = [nn.Linear(self.chin, hidden_dim)] + \
@@ -425,6 +427,7 @@ class LieConvGAT(LieConv):
 
     def forward(self, inp):
         pass
+
 
 @export
 def pConvBNrelu(in_channels, out_channels, bn=True, act='swish', **kwargs):
@@ -578,6 +581,7 @@ class ImgGCNLieResnet(ImgLieResnet):
                          conv_layer=lambda *args, **kwargs: LieConvGCN(*args, n_layers=gnn_recep_field, **kwargs),
                          **kwargs)
 
+
 class LieGNNBottleBlock(nn.Module, metaclass=Named):
     def __init__(self, gnn_conv_layer, chin, chout):
         super().__init__()
@@ -596,12 +600,14 @@ class LieGNNBottleBlock(nn.Module, metaclass=Named):
             nn.ReLU(),
             nn.Linear(chout // 4, chout)
         )
+
     def forward(self, x, edge_attr, edge_index):
         new_x = self.pre_conv_layers(x)
         new_x = self.gnn_layer(new_x, edge_attr=edge_attr, edge_index=edge_index)
         new_x = self.post_conv_layers(new_x)
         new_x[:, :self.chin] += x
         return new_x
+
 
 @export
 class LieGNN(nn.Module, metaclass=Named):
@@ -619,9 +625,10 @@ class LieGNN(nn.Module, metaclass=Named):
  
         Not used: [Fill], [nbhd], [ds_frac], [bn]
     """
-    def __init__(self, chin, num_outputs=1, k=1536, 
-                 bn=True, num_layers=6, mean=True, 
-                 per_point=True, pool=True, liftsamples=1, 
+
+    def __init__(self, chin, num_outputs=1, k=1536,
+                 bn=True, num_layers=6, mean=True,
+                 per_point=True, pool=True, liftsamples=1,
                  group=SE3, gnn_layer=LieGNNSimpleConv,
                  nbhd=0, **kwargs):
         super().__init__()
@@ -636,6 +643,7 @@ class LieGNN(nn.Module, metaclass=Named):
             nn.Linear(k, num_outputs)
         )
         self.liftsamples = liftsamples
+        self.pool = pool
 
         self.group = group
         self.nbhd_size = nbhd
@@ -649,23 +657,24 @@ class LieGNN(nn.Module, metaclass=Named):
         x = self.emb_layer(graph.x)
         # Apply the network:
         for layer in self.net:
-            x = layer(x=x, 
+            x = layer(x=x,
                       edge_index=graph.edge_index,
                       edge_attr=graph.edge_attr)
-        
-        res = torch_geometric.nn.global_mean_pool(
-                self.final_layer(x),
-                graph.batch)
+        res = self.final_layer(x)
+        if self.pool:
+            res = torch_geometric.nn.global_mean_pool(res, graph.batch)
         return res
+
 
 @export
 class ImgLieGNN(LieGNN):
     """
     LieGNN architecture applied to images
     """
-    def __init__(self, chin=1, num_layers=6, group=T(2), 
+
+    def __init__(self, chin=1, num_layers=6, group=T(2),
                  num_targets=10, k=256, nbhd=0, **kwargs):
-        super().__init__(chin=chin, num_layers=num_layers, 
+        super().__init__(chin=chin, num_layers=num_layers,
                          group=group, k=k, num_outputs=num_targets,
                          nbhd=nbhd, **kwargs)
         self.lifted_coords = None
@@ -674,4 +683,3 @@ class ImgLieGNN(LieGNN):
         """ assumes x is a regular image: (bs,c,h,w)"""
         # Call the parent class that holds the actual GNN
         return super().forward(x)
-
