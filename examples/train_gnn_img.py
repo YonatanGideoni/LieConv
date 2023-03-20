@@ -85,7 +85,7 @@ def makeGraph(x, y, group, nbhd_size, liftsamples):
         y=torch.tensor(y)[None])
     return graph
 
-def visualiseGraphImg(graph: torch_geometric.data.Data):
+def visualiseGraphImg(graph: torch_geometric.data.Data, nbhd_idx: int = None):
     linspace_coords = graph.pos[:, :-1]
     pix_vals = graph.x
     i = linspace_coords[:, 0].unique()
@@ -99,6 +99,15 @@ def visualiseGraphImg(graph: torch_geometric.data.Data):
     
     img[img_coords[:, 0], img_coords[:, 1]] = pix_vals[:, 0]
     plt.imshow(img)
+
+    if nbhd_idx is not None:
+        # show the neighbours for the given node
+        nodes = graph.edge_index[1, graph.edge_index[0, :] == nbhd_idx]
+        nbhd_coords = torch.stack([get_coords(linspace_coords[idx].tolist()) for idx in nodes])
+        overlay = torch.zeros_like(img)
+        transparency = torch.zeros_like(img)
+        transparency[nbhd_coords[:, 0], nbhd_coords[:, 1]] = 0.6
+        plt.imshow(overlay, alpha=transparency, cmap='autumn')
     plt.show()
 
 def prepareImgToGraph(data, group, nbhd, liftsamples):
@@ -148,7 +157,7 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
                                   net_config['nbhd'], net_config['liftsamples']) 
                 for idx in tqdm(range(len(data)))]
     print("Done converting to graphs!\n")
-    #visualiseGraphImg(graph_data['train'][3])
+    #visualiseGraphImg(graph_data['train'][3], 500)
     
     device = torch.device(device)
     model = network(num_targets=datasets['train'].num_targets,
