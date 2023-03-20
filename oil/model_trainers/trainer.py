@@ -1,4 +1,5 @@
 import torch, dill
+import torch_geometric
 from torch import optim
 from ..logging.lazyLogger import LazyLogger
 from ..utils.utils import Eval, Named
@@ -29,7 +30,15 @@ class Trainer(object,metaclass=Named):
         self.hypers = {}
         self.ckpt = None#copy.deepcopy(self.state_dict())
         self.early_stop_metric = early_stop_metric
-    
+
+    def mb_get_xy(self, minibatch):
+        if isinstance(minibatch, torch_geometric.data.Batch):
+            x = minibatch
+            y = minibatch.y
+        else:
+            x, y = minibatch
+        return x, y
+
     def metrics(self,loader):
         return {}
 
