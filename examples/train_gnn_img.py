@@ -170,6 +170,10 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
         net_config['edge_dim'] = 1
     else:
         net_config['edge_dim'] = net_config['group'].q_dim + 2
+    if net_config.get('agg_orbits', False):
+        net_config['num_orbits'] = \
+                graph_data[list(datasets.keys())[0]][0].pos[:, -2].unique().shape[0]
+        print(net_config)
     device = torch.device(device)
     model = network(num_targets=datasets['train'].num_targets,
             **net_config).to(device)
