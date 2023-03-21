@@ -695,7 +695,7 @@ class LieGNN(nn.Module, metaclass=Named):
                                 for orbits in unbatched_orbits]
             mean_orbit_x = torch.stack([torch_geometric.nn.global_mean_pool(x, orbits)
                                         for (x, orbits) in zip(unbatched_x, unbatched_orbits)])
-            # 2: apply MLP
+            # 2: apply MLP, TODO
             # 3: concat all orbit aggs per graph
             orbit_embeddings = self.mlp_orbits(mean_orbit_x).view(mean_orbit_x.shape[0], -1)
             # 4: apply MLP to get outputs
