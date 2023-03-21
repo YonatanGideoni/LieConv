@@ -73,7 +73,7 @@ def makeGraph(x, y, group, nbhd_size, liftsamples, use_dist=True):
         edge_attr = distances[edge_pairs[0], 
                 edge_pairs[1]][:, None]
     else:
-        edge_attr = abq[edge_pairs[0],
+        edge_attr = pairs_abq[0, edge_pairs[0],
                 edge_pairs[1]]
     edge_pairs, edge_attr = to_undirected(edge_pairs, edge_attr, 
             reduce='mean')
@@ -145,7 +145,6 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
                 split={'train':12000}, small_test=False, 
                 net_config={}, opt_config={}, use_test=True,
                 trainer_config={'log_dir':None}, use_dist=True):
-
     # Prep the datasets splits, model, and dataloaders
     datasets = split_dataset(dataset(f'~/datasets/{dataset}/'),
                              splits=split)
@@ -170,7 +169,7 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
     if use_dist:
         net_config['edge_dim'] = 1
     else:
-        net_config['edge_dim'] = net_config['group'].lie_dim + 2
+        net_config['edge_dim'] = net_config['group'].q_dim + 2
     device = torch.device(device)
     model = network(num_targets=datasets['train'].num_targets,
             **net_config).to(device)
