@@ -11,7 +11,7 @@ from oil.datasetup.datasets import split_dataset
 from oil.utils.utils import LoaderTo
 
 
-def test_gnn_equiv():
+def test_gnn_conv():
     group = T(2)
     bs: int = 1
     device = 'cpu'
