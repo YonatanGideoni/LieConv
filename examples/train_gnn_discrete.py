@@ -73,21 +73,6 @@ def makeTrainer(*, network=ImgLieGNN, num_epochs=100, bs=50, lr=3e-3, n_points_p
 
 
 if __name__ == '__main__':
-    # n_dims = 2
-    # n_points_per_graph = 5
-    # n_graphs_per_dataset = 32
-    # bs = 8
-    #
-    # train = create_dataset(n_graphs_per_dataset, n_dims, n_points_per_graph)
-    # test = create_dataset(n_graphs_per_dataset, n_dims, n_points_per_graph)
-    #
-    # for _ in range(10):
-    #     data = create_data(n_dims, n_points_per_graph)
-    #
-    #     graph = data_to_graph(data)
-    #
-    #     print()
-
     Trial = train_trial(makeTrainer)
     defaults = copy.deepcopy(makeTrainer.__kwdefaults__)
     defaults['save'] = False
