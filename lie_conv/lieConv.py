@@ -625,11 +625,10 @@ class LieGNN(nn.Module, metaclass=Named):
  
         Not used: [Fill], [nbhd], [ds_frac], [bn]
     """
-
-    def __init__(self, chin, num_outputs=1, k=1536,
-                 bn=True, num_layers=6, mean=True,
-                 per_point=True, pool=True, liftsamples=1,
-                 group=SE3, gnn_layer=LieGNNSimpleConv,
+    def __init__(self, chin, num_outputs=1, k=1536, 
+                 bn=True, num_layers=6, mean=True, 
+                 per_point=True, pool=True, liftsamples=1, 
+                 group=SE3, gnn_layer=LieGNNSimpleConv, agg_orbits=False, num_orbits=28,
                  nbhd=0, **kwargs):
         super().__init__()
 
@@ -637,11 +636,28 @@ class LieGNN(nn.Module, metaclass=Named):
         conv = lambda ki, ko: LieGNNBottleBlock(gnn_layer, ki, ko, **kwargs)
         self.emb_layer = nn.Linear(chin, k)
         self.net = nn.ModuleList([conv(k, k) for i in range(num_layers)])
-        self.final_layer = nn.Sequential(
-            nn.BatchNorm1d(k),
-            nn.ReLU(),
-            nn.Linear(k, num_outputs)
-        )
+        if not agg_orbits:
+            self.final_layer = nn.Sequential(
+                nn.BatchNorm1d(k),
+                nn.ReLU(),
+                nn.Linear(k, num_outputs)
+            )
+        else:
+            self.num_orbits = num_orbits
+            self.mlp_orbits = nn.Sequential(
+                    nn.Linear(k, k),
+                    nn.ReLU(),
+                    nn.Linear(k, k),
+                    nn.ReLU()
+            )
+
+            self.final_layer = nn.Sequential(
+                    nn.BatchNorm1d(self.num_orbits * k),
+                    nn.ReLU(),
+                    nn.Linear(self.num_orbits * k, num_outputs)
+            )
+
+        self.agg_orbits = agg_orbits
         self.liftsamples = liftsamples
         self.pool = pool
 
@@ -660,11 +676,29 @@ class LieGNN(nn.Module, metaclass=Named):
             x = layer(x=x,
                       edge_index=graph.edge_index,
                       edge_attr=graph.edge_attr)
-        res = self.final_layer(x)
-        if self.pool:
-            res = torch_geometric.nn.global_mean_pool(res, graph.batch)
+        if not self.agg_orbits:
+            res = torch_geometric.nn.global_mean_pool(
+                    self.final_layer(x),
+                    graph.batch)
+        else:
+            # 1: mean values over all values in the orbit (per graph)
+            unbatched_x = torch_geometric.utils.unbatch(x, graph.batch)
+            unbatched_orbits = torch_geometric.utils.unbatch(
+                    graph.pos[:, -2], graph.batch)
+            orbits_to_int = dict(zip(unbatched_orbits[0].unique().tolist(),
+                                range(unbatched_orbits[0].unique().shape[0])))
+            unbatched_orbits = [torch.tensor([orbits_to_int[orbit.item()] for orbit in orbits],
+                                             device=x.device)
+                                for orbits in unbatched_orbits]
+            mean_orbit_x = torch.stack([torch_geometric.nn.global_mean_pool(x, orbits)
+                            for (x, orbits) in zip(unbatched_x, unbatched_orbits)])
+            # 2: apply MLP
+            # 3: concat all orbit aggs per graph
+            orbit_embeddings = self.mlp_orbits(mean_orbit_x).view(mean_orbit_x.shape[0], -1)
+            # 4: apply MLP to get outputs
+            assert mean_orbit_x[0].shape[0] == self.num_orbits
+            res = self.final_layer(orbit_embeddings)
         return res
-
 
 @export
 class ImgLieGNN(LieGNN):
