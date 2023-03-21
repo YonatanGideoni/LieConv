@@ -73,7 +73,7 @@ def makeGraph(x, y, group, nbhd_size, liftsamples, use_dist=True):
         edge_attr = distances[edge_pairs[0], 
                 edge_pairs[1]][:, None]
     else:
-        edge_attr = lifted_abq[edge_pairs[0],
+        edge_attr = abq[edge_pairs[0],
                 edge_pairs[1]]
     edge_pairs, edge_attr = to_undirected(edge_pairs, edge_attr, 
             reduce='mean')
@@ -143,13 +143,14 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
                 num_epochs=100, bs=50, lr=3e-3, 
                 optim=Adam, device='cuda', trainer=Classifier,
                 split={'train':12000}, small_test=False, 
-                net_config={}, opt_config={},
+                net_config={}, opt_config={}, use_test=True,
                 trainer_config={'log_dir':None}, use_dist=True):
 
     # Prep the datasets splits, model, and dataloaders
     datasets = split_dataset(dataset(f'~/datasets/{dataset}/'),
                              splits=split)
-    datasets['test'] = dataset(f'~/datasets/{dataset}/', train=False)
+    if use_test:
+        datasets['test'] = dataset(f'~/datasets/{dataset}/', train=False)
     graph_data = {}
     print("Converting to graphs, this might take a while...")
     # Convert the datasets to graphs:
@@ -184,7 +185,7 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
     dataloaders['Train'] = islice(dataloaders['train'],
                                   1+len(dataloaders['train'])//10)
     if small_test: 
-        dataloaders['test'] = islice(dataloaders['test'],
+        dataloaders['Test'] = islice(dataloaders['test'],
                                      1+len(dataloaders['train'])//10)
     # Add some extra defaults if SGD is chosen
     opt_constr = partial(optim, lr=lr, **opt_config)
@@ -195,5 +196,5 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
 if __name__=="__main__":
     Trial = train_trial(makeTrainer)
     defaults = copy.deepcopy(makeTrainer.__kwdefaults__)
-    defaults['save'] = False
+    defaults['save'] = True 
     Trial(argupdated_config(defaults,namespace=(lieConv,lieGroups,graphConv)))
