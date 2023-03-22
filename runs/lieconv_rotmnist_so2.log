@@ -391,3 +391,862 @@ config  MnistRotDataset  ImgLieResnet        500  25  0.003  True  <class 'torch
   warnings.warn("To get the last learning rate computed by the scheduler, "
         Minibatch_Loss  Train_Acc       lr0  test_Acc
 239999             NaN        1.0  0.000003   0.98706
+train:   0%|                                            | 0/500 [00:00<?, ?it/s]                dataset       network num_epochs  bs     lr   aug                            optim device     trainer  train small_test    k total_ds fill nbhd group     log_dir log_suffix params(M)
+config  MnistRotDataset  ImgLieResnet        500  25  0.003  True  <class 'torch.optim.adam.Adam'>   cuda  Classifier  12000       True  128      0.1  0.1   25   SO2  LieConvSO2   mnistSO2  0.588837
+   Minibatch_Loss  Train_Acc    lr0  test_Acc
+0        2.292378    0.08898  0.003  0.100408
+train:   0%|                                  | 1/500 [00:55<7:42:38, 55.63s/it]     Minibatch_Loss  Train_Acc    lr0  test_Acc
+567        0.302257   0.897143  0.003  0.919184
+train:   0%|▏                                 | 2/500 [01:50<7:38:05, 55.19s/it]      Minibatch_Loss  Train_Acc    lr0  test_Acc
+1134        0.054598   0.924898  0.003   0.93551
+train:   1%|▏                                 | 3/500 [02:45<7:36:07, 55.06s/it]      Minibatch_Loss  Train_Acc    lr0  test_Acc
+1700        0.141527   0.942857  0.003  0.964082
+train:   1%|▎                                 | 4/500 [03:40<7:34:35, 54.99s/it]      Minibatch_Loss  Train_Acc       lr0  test_Acc
+2267        0.238172   0.960816  0.002999  0.955102
+train:   1%|▎                                 | 5/500 [04:35<7:34:33, 55.10s/it]      Minibatch_Loss  Train_Acc       lr0  test_Acc
+2828        0.032814   0.953469  0.002999  0.964082
+train:   1%|▍                                 | 6/500 [05:30<7:33:31, 55.08s/it]train:   1%|▍                                 | 7/500 [06:21<7:21:38, 53.75s/it]      Minibatch_Loss  Train_Acc       lr0  test_Acc
+3394        0.039579   0.973878  0.002999  0.968163
+train:   2%|▌                                 | 8/500 [07:16<7:24:07, 54.16s/it]      Minibatch_Loss  Train_Acc       lr0  test_Acc
+3958        0.094253   0.974694  0.002998  0.966531
+train:   2%|▌                                 | 9/500 [08:12<7:26:20, 54.54s/it]      Minibatch_Loss  Train_Acc       lr0  test_Acc
+4520         0.17559    0.93551  0.002997  0.948571
+train:   2%|▋                                | 10/500 [09:07<7:27:29, 54.79s/it]      Minibatch_Loss  Train_Acc       lr0  test_Acc
+5080        0.053815   0.976327  0.002997  0.976327
+train:   2%|▋                                | 11/500 [10:02<7:28:25, 55.02s/it]      Minibatch_Loss  Train_Acc       lr0  test_Acc
+5643        0.166755   0.974694  0.002996  0.967347
+train:   2%|▊                                | 12/500 [10:58<7:27:45, 55.05s/it]      Minibatch_Loss  Train_Acc       lr0  test_Acc
+6207        0.005901   0.985306  0.002995   0.97551
+train:   3%|▊                                | 13/500 [11:53<7:27:11, 55.10s/it]train:   3%|▉                                | 14/500 [12:44<7:16:03, 53.83s/it]      Minibatch_Loss  Train_Acc       lr0  test_Acc
+6773        0.016162   0.962449  0.002994  0.959184
+train:   3%|▉                                | 15/500 [13:39<7:17:53, 54.17s/it]      Minibatch_Loss  Train_Acc       lr0  test_Acc
+7340        0.219761   0.964898  0.002993  0.955102
+train:   3%|█                                | 16/500 [14:34<7:19:36, 54.50s/it]      Minibatch_Loss  Train_Acc       lr0  test_Acc
+7902        0.008013   0.971429  0.002992  0.973061
+train:   3%|█                                | 17/500 [15:29<7:20:14, 54.69s/it]      Minibatch_Loss  Train_Acc       lr0  test_Acc
+8468        0.038405   0.977143  0.002991  0.977143
+train:   4%|█▏                               | 18/500 [16:24<7:20:02, 54.78s/it]      Minibatch_Loss  Train_Acc      lr0  test_Acc
+9031        0.174047   0.982857  0.00299  0.979592
+train:   4%|█▎                               | 19/500 [17:19<7:19:54, 54.87s/it]      Minibatch_Loss  Train_Acc       lr0  test_Acc
+9598        0.176329   0.980408  0.002988  0.981224
+train:   4%|█▎                               | 20/500 [18:14<7:18:42, 54.84s/it]train:   4%|█▍                               | 21/500 [19:05<7:07:51, 53.59s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+10167        0.016282   0.986122  0.002987  0.979592
+train:   4%|█▍                               | 22/500 [19:59<7:09:56, 53.97s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+10733        0.227215   0.969796  0.002985  0.964898
+train:   5%|█▌                               | 23/500 [20:55<7:11:50, 54.32s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+11297        0.005333    0.97551  0.002984  0.973878
+train:   5%|█▌                               | 24/500 [21:50<7:13:00, 54.58s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+11860        0.052147   0.980408  0.002982  0.977959
+train:   5%|█▋                               | 25/500 [22:45<7:14:00, 54.82s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+12422        0.020745    0.98449  0.00298  0.981224
+train:   5%|█▋                               | 26/500 [23:40<7:14:11, 54.96s/it]train:   5%|█▊                               | 27/500 [24:32<7:04:24, 53.84s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+12984        0.063458   0.989388  0.002978  0.982857
+train:   6%|█▊                               | 28/500 [25:27<7:06:39, 54.24s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+13549        0.019854    0.99102  0.002976  0.983673
+train:   6%|█▉                               | 29/500 [26:22<7:07:57, 54.52s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+14111        0.101402   0.985306  0.002974  0.979592
+train:   6%|█▉                               | 30/500 [27:17<7:08:47, 54.74s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+14676        0.012545   0.995918  0.002972  0.987755
+train:   6%|██                               | 31/500 [28:12<7:08:59, 54.88s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+15239        0.000724   0.988571  0.00297  0.982857
+train:   6%|██                               | 32/500 [29:08<7:09:05, 55.01s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+15803        0.072977   0.990204  0.002968  0.985306
+train:   7%|██▏                              | 33/500 [30:03<7:08:39, 55.07s/it]train:   7%|██▏                              | 34/500 [30:54<6:58:22, 53.87s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+16367        0.065471   0.989388  0.002966  0.979592
+train:   7%|██▎                              | 35/500 [31:49<6:59:56, 54.19s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+16934        0.024622   0.991837  0.002963  0.978776
+train:   7%|██▍                              | 36/500 [32:44<7:01:08, 54.46s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+17499        0.024796   0.992653  0.002961   0.98449
+train:   7%|██▍                              | 37/500 [33:39<7:01:18, 54.60s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+18065        0.003203   0.994286  0.002958   0.98449
+train:   8%|██▌                              | 38/500 [34:34<7:02:30, 54.87s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+18622        0.010953    0.99102  0.002956   0.98449
+train:   8%|██▌                              | 39/500 [35:30<7:02:56, 55.05s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+19186        0.009536   0.992653  0.002953  0.985306
+train:   8%|██▋                              | 40/500 [36:25<7:02:19, 55.09s/it]train:   8%|██▋                              | 41/500 [37:16<6:52:12, 53.88s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+19750        0.003864   0.991837  0.00295  0.980408
+train:   8%|██▊                              | 42/500 [38:11<6:53:52, 54.22s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+20315        0.000335   0.988571  0.002947  0.982857
+train:   9%|██▊                              | 43/500 [39:06<6:55:07, 54.50s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+20874        0.002323   0.993469  0.002944  0.981224
+train:   9%|██▉                              | 44/500 [40:02<6:57:13, 54.90s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+21437        0.083847    0.99102  0.002941  0.986122
+train:   9%|██▉                              | 45/500 [40:57<6:56:40, 54.95s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+22004        0.000033   0.995102  0.002938  0.985306
+train:   9%|███                              | 46/500 [41:52<6:55:37, 54.93s/it]train:   9%|███                              | 47/500 [42:43<6:45:58, 53.77s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+22568        0.001683   0.990204  0.002935  0.976327
+train:  10%|███▏                             | 48/500 [43:38<6:47:01, 54.03s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+23137        0.000787   0.992653  0.002932  0.983673
+train:  10%|███▏                             | 49/500 [44:33<6:49:17, 54.45s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+23698        0.004557   0.990204  0.002928  0.985306
+train:  10%|███▎                             | 50/500 [45:29<6:50:21, 54.71s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+24259        0.026966   0.999184  0.002925  0.987755
+train:  10%|███▎                             | 51/500 [46:24<6:50:49, 54.90s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+24823        0.003287   0.995918  0.002922  0.982041
+train:  10%|███▍                             | 52/500 [47:19<6:50:55, 55.03s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+25386        0.002635   0.993469  0.002918  0.981224
+train:  11%|███▍                             | 53/500 [48:14<6:50:20, 55.08s/it]train:  11%|███▌                             | 54/500 [49:06<6:40:30, 53.88s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+25950        0.036199   0.993469  0.002914  0.981224
+train:  11%|███▋                             | 55/500 [50:01<6:44:09, 54.49s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+26507        0.006383   0.991837  0.002911  0.986939
+train:  11%|███▋                             | 56/500 [50:57<6:45:06, 54.74s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+27069        0.003664   0.992653  0.002907  0.986122
+train:  11%|███▊                             | 57/500 [51:52<6:45:42, 54.95s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+27632        0.007801   0.996735  0.002903  0.990204
+train:  12%|███▊                             | 58/500 [52:47<6:45:07, 54.99s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+28195        0.021364   0.996735  0.002899  0.986122
+train:  12%|███▉                             | 59/500 [53:43<6:45:26, 55.16s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+28753        0.032165   0.996735  0.002895  0.983673
+train:  12%|███▉                             | 60/500 [54:39<6:45:34, 55.31s/it]train:  12%|████                             | 61/500 [55:30<6:35:20, 54.03s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+29317        0.000567   0.997551  0.002891  0.987755
+train:  12%|████                             | 62/500 [56:25<6:36:43, 54.34s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+29881        0.000394   0.995918  0.002887  0.986122
+train:  13%|████▏                            | 63/500 [57:20<6:37:55, 54.63s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+30444         0.00047   0.996735  0.002882  0.989388
+train:  13%|████▏                            | 64/500 [58:15<6:38:09, 54.79s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+31008        0.215148   0.995102  0.002878  0.989388
+train:  13%|████▎                            | 65/500 [59:11<6:38:36, 54.98s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+31571        0.000357   0.991837  0.002874  0.983673
+train:  13%|████                           | 66/500 [1:00:06<6:37:58, 55.02s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+32134        0.009592   0.994286  0.002869  0.982857
+train:  13%|████▏                          | 67/500 [1:01:01<6:37:28, 55.08s/it]train:  14%|████▏                          | 68/500 [1:01:52<6:27:29, 53.82s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+32701        0.000071   0.996735  0.002865  0.986939
+train:  14%|████▎                          | 69/500 [1:02:47<6:28:55, 54.14s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+33270        0.002165   0.997551  0.00286  0.988571
+train:  14%|████▎                          | 70/500 [1:03:41<6:29:08, 54.30s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+33833        0.000018   0.999184  0.002855  0.990204
+train:  14%|████▍                          | 71/500 [1:04:37<6:31:39, 54.78s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+34391        0.000015   0.996735  0.002851  0.982857
+train:  14%|████▍                          | 72/500 [1:05:33<6:32:21, 55.00s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+34950        0.000014   0.995918  0.002846   0.98449
+train:  15%|████▌                          | 73/500 [1:06:28<6:32:15, 55.12s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+35513        0.004234   0.997551  0.002841  0.980408
+train:  15%|████▌                          | 74/500 [1:07:23<6:31:41, 55.17s/it]train:  15%|████▋                          | 75/500 [1:08:15<6:22:20, 53.98s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+36076        0.002481   0.993469  0.002836   0.98449
+train:  15%|████▋                          | 76/500 [1:09:10<6:23:49, 54.32s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+36638        0.000345   0.996735  0.002831  0.982041
+train:  15%|████▊                          | 77/500 [1:10:05<6:25:23, 54.67s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+37201        0.005372   0.999184  0.002826  0.985306
+train:  16%|████▊                          | 78/500 [1:11:00<6:25:24, 54.80s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+37766         0.00269   0.995102  0.00282  0.987755
+train:  16%|████▉                          | 79/500 [1:11:56<6:25:23, 54.92s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+38329         0.01075   0.998367  0.002815  0.986939
+train:  16%|████▉                          | 80/500 [1:12:51<6:25:07, 55.02s/it]train:  16%|█████                          | 81/500 [1:13:42<6:16:10, 53.87s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+38892        0.011632   0.995918  0.00281  0.986122
+train:  16%|█████                          | 82/500 [1:14:38<6:18:50, 54.38s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+39453        0.001383   0.997551  0.002804   0.98449
+train:  17%|█████▏                         | 83/500 [1:15:33<6:19:55, 54.67s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+40014        0.000663   0.998367  0.002799  0.986939
+train:  17%|█████▏                         | 84/500 [1:16:28<6:20:32, 54.89s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+40578        0.000462   0.998367  0.002793  0.986939
+train:  17%|█████▎                         | 85/500 [1:17:23<6:19:38, 54.89s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+41144         0.10402   0.999184  0.002788  0.989388
+train:  17%|█████▎                         | 86/500 [1:18:18<6:19:23, 54.98s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+41706        0.000222   0.995918  0.002782  0.982857
+train:  17%|█████▍                         | 87/500 [1:19:14<6:18:55, 55.05s/it]train:  18%|█████▍                         | 88/500 [1:20:05<6:10:35, 53.97s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+42267         0.00004        1.0  0.002776  0.989388
+train:  18%|█████▌                         | 89/500 [1:21:00<6:12:33, 54.39s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+42829        0.000713   0.997551  0.00277   0.98449
+train:  18%|█████▌                         | 90/500 [1:21:55<6:12:45, 54.55s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+43395        0.013871   0.990204  0.002764  0.982041
+train:  18%|█████▋                         | 91/500 [1:22:51<6:13:13, 54.75s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+43956        0.054501   0.998367  0.002758  0.986939
+train:  18%|█████▋                         | 92/500 [1:23:46<6:14:14, 55.03s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+44515        0.000272        1.0  0.002752   0.98449
+train:  19%|█████▊                         | 93/500 [1:24:42<6:14:17, 55.18s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+45079        0.028493   0.996735  0.002746  0.979592
+train:  19%|█████▊                         | 94/500 [1:25:37<6:13:20, 55.17s/it]train:  19%|█████▉                         | 95/500 [1:26:28<6:04:23, 53.98s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+45642        0.007884   0.996735  0.00274  0.986122
+train:  19%|█████▉                         | 96/500 [1:27:23<6:05:08, 54.23s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+46210        0.001571   0.997551  0.002734  0.986939
+train:  19%|██████                         | 97/500 [1:28:18<6:06:37, 54.58s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+46771        0.000066   0.998367  0.002728  0.989388
+train:  20%|██████                         | 98/500 [1:29:13<6:06:55, 54.77s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+47332        0.000074   0.995102  0.002721  0.983673
+train:  20%|██████▏                        | 99/500 [1:30:09<6:07:55, 55.05s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+47895        0.000059   0.999184  0.002715  0.987755
+train:  20%|██████                        | 100/500 [1:31:04<6:07:16, 55.09s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+48459        0.000101        1.0  0.002708   0.98449
+train:  20%|██████                        | 101/500 [1:32:00<6:06:29, 55.11s/it]train:  20%|██████                        | 102/500 [1:32:51<5:57:34, 53.91s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+49023        0.000267        1.0  0.002702  0.986122
+train:  21%|██████▏                       | 103/500 [1:33:46<5:59:28, 54.33s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+49585        0.000014   0.999184  0.002695  0.987755
+train:  21%|██████▏                       | 104/500 [1:34:42<6:00:59, 54.70s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+50145        0.000002   0.999184  0.002688   0.99102
+train:  21%|██████▎                       | 105/500 [1:35:37<6:02:07, 55.01s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+50707        0.000009   0.999184  0.002682  0.991837
+train:  21%|██████▎                       | 106/500 [1:36:32<6:01:03, 54.98s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+51272        0.001097        1.0  0.002675   0.99102
+train:  21%|██████▍                       | 107/500 [1:37:27<6:00:26, 55.03s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+51837         0.00001   0.999184  0.002668  0.988571
+train:  22%|██████▍                       | 108/500 [1:38:22<5:59:26, 55.02s/it]train:  22%|██████▌                       | 109/500 [1:39:13<5:50:31, 53.79s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+52403         0.00166   0.998367  0.002661  0.988571
+train:  22%|██████▌                       | 110/500 [1:40:09<5:52:35, 54.25s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+52964         0.00023   0.999184  0.002654  0.990204
+train:  22%|██████▋                       | 111/500 [1:41:04<5:54:03, 54.61s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+53524        0.000304   0.998367  0.002647  0.986939
+train:  22%|██████▋                       | 112/500 [1:41:59<5:54:26, 54.81s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+54091        0.000579   0.998367  0.002639  0.988571
+train:  23%|██████▊                       | 113/500 [1:42:54<5:53:53, 54.87s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+54653        0.003129        1.0  0.002632  0.991837
+train:  23%|██████▊                       | 114/500 [1:43:50<5:54:11, 55.06s/it]train:  23%|██████▉                       | 115/500 [1:44:41<5:46:19, 53.97s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+55213        0.000251   0.997551  0.002625  0.993469
+train:  23%|██████▉                       | 116/500 [1:45:36<5:47:31, 54.30s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+55778        0.000041   0.999184  0.002618  0.989388
+train:  23%|███████                       | 117/500 [1:46:31<5:47:43, 54.47s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+56346        0.000449   0.997551  0.00261  0.989388
+train:  24%|███████                       | 118/500 [1:47:26<5:47:35, 54.59s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+56911        0.007139   0.999184  0.002603  0.983673
+train:  24%|███████▏                      | 119/500 [1:48:21<5:48:06, 54.82s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+57474        0.000028        1.0  0.002595  0.987755
+train:  24%|███████▏                      | 120/500 [1:49:16<5:47:40, 54.90s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+58037        0.000021        1.0  0.002588  0.986939
+train:  24%|███████▎                      | 121/500 [1:50:12<5:47:38, 55.03s/it]train:  24%|███████▎                      | 122/500 [1:51:03<5:39:18, 53.86s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+58601        0.000007   0.998367  0.00258  0.986939
+train:  25%|███████▍                      | 123/500 [1:51:58<5:41:18, 54.32s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+59163        0.001229        1.0  0.002572  0.987755
+train:  25%|███████▍                      | 124/500 [1:52:53<5:41:56, 54.57s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+59727        0.006292   0.997551  0.002564   0.99102
+train:  25%|███████▌                      | 125/500 [1:53:49<5:41:56, 54.71s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+60291        0.000044        1.0  0.002557  0.988571
+train:  25%|███████▌                      | 126/500 [1:54:44<5:42:53, 55.01s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+60850        0.000074   0.998367  0.002549  0.988571
+train:  25%|███████▌                      | 127/500 [1:55:39<5:42:07, 55.03s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+61414         0.01636   0.999184  0.002541  0.985306
+train:  26%|███████▋                      | 128/500 [1:56:35<5:41:36, 55.10s/it]train:  26%|███████▋                      | 129/500 [1:57:26<5:33:11, 53.89s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+61978        0.000042   0.999184  0.002533  0.986939
+train:  26%|███████▊                      | 130/500 [1:58:21<5:35:04, 54.34s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+62541        0.003772   0.998367  0.002525  0.982857
+train:  26%|███████▊                      | 131/500 [1:59:16<5:35:13, 54.51s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+63104        0.000043   0.998367  0.002517  0.986939
+train:  26%|███████▉                      | 132/500 [2:00:11<5:36:00, 54.78s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+63672        0.000894   0.998367  0.002508  0.990204
+train:  27%|███████▉                      | 133/500 [2:01:06<5:34:54, 54.75s/it]       Minibatch_Loss  Train_Acc     lr0  test_Acc
+64236        0.000014   0.999184  0.0025   0.99102
+train:  27%|████████                      | 134/500 [2:02:01<5:34:58, 54.91s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+64799         0.00007   0.996735  0.002492  0.985306
+train:  27%|████████                      | 135/500 [2:02:57<5:34:41, 55.02s/it]train:  27%|████████▏                     | 136/500 [2:03:47<5:25:40, 53.68s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+65369        0.000846   0.998367  0.002484  0.987755
+train:  27%|████████▏                     | 137/500 [2:04:43<5:27:52, 54.19s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+65930         0.00387   0.997551  0.002475  0.986939
+train:  28%|████████▎                     | 138/500 [2:05:38<5:28:56, 54.52s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+66491        0.000772   0.997551  0.002467  0.986122
+train:  28%|████████▎                     | 139/500 [2:06:33<5:29:23, 54.75s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+67056        0.000586   0.997551  0.002458  0.981224
+train:  28%|████████▍                     | 140/500 [2:07:28<5:28:54, 54.82s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+67622        0.000411   0.995102  0.00245  0.988571
+train:  28%|████████▍                     | 141/500 [2:08:23<5:28:17, 54.87s/it]train:  28%|████████▌                     | 142/500 [2:09:14<5:20:48, 53.77s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+68185        0.003041        1.0  0.002441   0.99102
+train:  29%|████████▌                     | 143/500 [2:10:10<5:23:09, 54.31s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+68744        0.000038   0.998367  0.002433  0.986939
+train:  29%|████████▋                     | 144/500 [2:11:05<5:23:52, 54.59s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+69309        0.018618   0.999184  0.002424  0.988571
+train:  29%|████████▋                     | 145/500 [2:12:00<5:23:13, 54.63s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+69874        0.000293   0.997551  0.002415  0.986122
+train:  29%|████████▊                     | 146/500 [2:12:55<5:23:32, 54.84s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+70439        0.000306        1.0  0.002406  0.990204
+train:  29%|████████▊                     | 147/500 [2:13:50<5:23:09, 54.93s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+71000        0.000016        1.0  0.002398  0.991837
+train:  30%|████████▉                     | 148/500 [2:14:46<5:23:23, 55.12s/it]train:  30%|████████▉                     | 149/500 [2:15:37<5:15:52, 54.00s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+71561        0.000234   0.994286  0.002389  0.989388
+train:  30%|█████████                     | 150/500 [2:16:32<5:17:07, 54.37s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+72125        0.000002   0.998367  0.00238  0.986939
+train:  30%|█████████                     | 151/500 [2:17:28<5:17:52, 54.65s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+72687        0.014066   0.997551  0.002371   0.98449
+train:  30%|█████████                     | 152/500 [2:18:23<5:18:05, 54.84s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+73253        0.000002        1.0  0.002362  0.988571
+train:  31%|█████████▏                    | 153/500 [2:19:18<5:16:56, 54.80s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+73813        0.000051   0.999184  0.002353  0.986122
+train:  31%|█████████▏                    | 154/500 [2:20:13<5:17:26, 55.05s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+74379        0.000008        1.0  0.002343  0.987755
+train:  31%|█████████▎                    | 155/500 [2:21:08<5:16:24, 55.03s/it]train:  31%|█████████▎                    | 156/500 [2:21:59<5:08:42, 53.85s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+74943        0.001166   0.999184  0.002334   0.99102
+train:  31%|█████████▍                    | 157/500 [2:22:55<5:09:59, 54.23s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+75508         0.00051   0.997551  0.002325  0.986939
+train:  32%|█████████▍                    | 158/500 [2:23:50<5:10:57, 54.56s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+76071        0.000004        1.0  0.002316  0.986122
+train:  32%|█████████▌                    | 159/500 [2:24:45<5:11:26, 54.80s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+76632    2.956386e-07        1.0  0.002307  0.989388
+train:  32%|█████████▌                    | 160/500 [2:25:41<5:11:25, 54.96s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+77194        0.000322   0.999184  0.002297  0.985306
+train:  32%|█████████▋                    | 161/500 [2:26:36<5:10:52, 55.02s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+77758        0.000089   0.996735  0.002288  0.986939
+train:  32%|█████████▋                    | 162/500 [2:27:31<5:10:28, 55.11s/it]train:  33%|█████████▊                    | 163/500 [2:28:22<5:02:32, 53.87s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+78323        0.000045   0.998367  0.002278  0.986122
+train:  33%|█████████▊                    | 164/500 [2:29:17<5:04:12, 54.32s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+78880        0.000078        1.0  0.002269   0.99102
+train:  33%|█████████▉                    | 165/500 [2:30:13<5:05:36, 54.74s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+79446         0.00116   0.999184  0.002259  0.988571
+train:  33%|█████████▉                    | 166/500 [2:31:08<5:04:12, 54.65s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+80015        0.000003   0.999184  0.00225  0.982857
+train:  33%|██████████                    | 167/500 [2:32:03<5:04:00, 54.77s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+80581        0.130809   0.996735  0.00224  0.987755
+train:  34%|██████████                    | 168/500 [2:32:58<5:03:29, 54.85s/it]train:  34%|██████████▏                   | 169/500 [2:33:49<4:56:01, 53.66s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+81147        0.000034   0.999184  0.00223  0.982857
+train:  34%|██████████▏                   | 170/500 [2:34:44<4:58:01, 54.18s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+81707        0.000283        1.0  0.002221  0.989388
+train:  34%|██████████▎                   | 171/500 [2:35:39<4:59:21, 54.60s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+82267        0.000534   0.996735  0.002211   0.98449
+train:  34%|██████████▎                   | 172/500 [2:36:35<4:59:46, 54.84s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+82831        0.000187   0.999184  0.002201  0.987755
+train:  35%|██████████▍                   | 173/500 [2:37:30<4:59:14, 54.91s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+83395        0.004057        1.0  0.002192  0.989388
+train:  35%|██████████▍                   | 174/500 [2:38:25<4:58:56, 55.02s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+83957        0.002284   0.999184  0.002182  0.985306
+train:  35%|██████████▌                   | 175/500 [2:39:21<4:58:41, 55.14s/it]train:  35%|██████████▌                   | 176/500 [2:40:12<4:52:01, 54.08s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+84516        0.001097        1.0  0.002172  0.985306
+train:  35%|██████████▌                   | 177/500 [2:41:07<4:52:58, 54.42s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+85077        0.000008        1.0  0.002162  0.986939
+train:  36%|██████████▋                   | 178/500 [2:42:03<4:53:20, 54.66s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+85644        0.000067   0.997551  0.002152  0.988571
+train:  36%|██████████▋                   | 179/500 [2:42:58<4:53:18, 54.82s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+86204    3.814697e-08        1.0  0.002142  0.989388
+train:  36%|██████████▊                   | 180/500 [2:43:54<4:54:01, 55.13s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+86762        0.000003        1.0  0.002132  0.989388
+train:  36%|██████████▊                   | 181/500 [2:44:49<4:53:46, 55.26s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+87325        0.000027        1.0  0.002122   0.98449
+train:  36%|██████████▉                   | 182/500 [2:45:45<4:52:54, 55.27s/it]train:  37%|██████████▉                   | 183/500 [2:46:36<4:45:33, 54.05s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+87888        0.008254   0.998367  0.002112  0.988571
+train:  37%|███████████                   | 184/500 [2:47:31<4:46:25, 54.38s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+88451        0.000164        1.0  0.002102  0.985306
+train:  37%|███████████                   | 185/500 [2:48:27<4:47:22, 54.74s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+89011         0.00009   0.998367  0.002092  0.988571
+train:  37%|███████████▏                  | 186/500 [2:49:22<4:47:46, 54.99s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+89567         0.00016   0.999184  0.002082  0.986122
+train:  37%|███████████▏                  | 187/500 [2:50:18<4:47:50, 55.18s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+90132        0.000002   0.998367  0.002072  0.988571
+train:  38%|███████████▎                  | 188/500 [2:51:13<4:46:54, 55.17s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+90694        0.000016        1.0  0.002061  0.983673
+train:  38%|███████████▎                  | 189/500 [2:52:08<4:46:15, 55.23s/it]train:  38%|███████████▍                  | 190/500 [2:52:59<4:39:00, 54.00s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+91257        0.000775   0.999184  0.002051  0.986939
+train:  38%|███████████▍                  | 191/500 [2:53:55<4:39:58, 54.36s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+91821        0.000371   0.996735  0.002041  0.986939
+train:  38%|███████████▌                  | 192/500 [2:54:50<4:40:37, 54.67s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+92382        0.000726        1.0  0.002031  0.986939
+train:  39%|███████████▌                  | 193/500 [2:55:45<4:40:58, 54.91s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+92942    2.002714e-07   0.999184  0.00202  0.987755
+train:  39%|███████████▋                  | 194/500 [2:56:41<4:40:28, 54.99s/it]       Minibatch_Loss  Train_Acc      lr0  test_Acc
+93506        0.000017        1.0  0.00201  0.989388
+train:  39%|███████████▋                  | 195/500 [2:57:36<4:39:52, 55.06s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+94067        0.000354   0.998367  0.001999  0.988571
+train:  39%|███████████▊                  | 196/500 [2:58:31<4:39:40, 55.20s/it]train:  39%|███████████▊                  | 197/500 [2:59:23<4:32:54, 54.04s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+94628    5.006784e-07   0.998367  0.001989  0.988571
+train:  40%|███████████▉                  | 198/500 [3:00:18<4:33:29, 54.34s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+95195        0.000004        1.0  0.001979   0.99102
+train:  40%|███████████▉                  | 199/500 [3:01:13<4:34:05, 54.64s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+95757         0.00001        1.0  0.001968   0.99102
+train:  40%|████████████                  | 200/500 [3:02:08<4:33:41, 54.74s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+96323    2.670284e-07        1.0  0.001958  0.991837
+train:  40%|████████████                  | 201/500 [3:03:03<4:33:19, 54.85s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+96884        0.007982   0.997551  0.001947  0.986122
+train:  40%|████████████                  | 202/500 [3:03:59<4:33:24, 55.05s/it]train:  41%|████████████▏                 | 203/500 [3:04:50<4:27:09, 53.97s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+97445        0.000017   0.998367  0.001936  0.986939
+train:  41%|████████████▏                 | 204/500 [3:05:45<4:27:45, 54.27s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+98013        0.000475        1.0  0.001926  0.990204
+train:  41%|████████████▎                 | 205/500 [3:06:40<4:27:45, 54.46s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+98578        0.000004   0.999184  0.001915  0.991837
+train:  41%|████████████▎                 | 206/500 [3:07:35<4:27:47, 54.65s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+99142    6.484971e-07   0.999184  0.001904  0.987755
+train:  41%|████████████▍                 | 207/500 [3:08:30<4:27:56, 54.87s/it]       Minibatch_Loss  Train_Acc       lr0  test_Acc
+99704        0.000593   0.999184  0.001894   0.99102
+train:  42%|████████████▍                 | 208/500 [3:09:26<4:27:58, 55.06s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+100265        0.000004        1.0  0.001883  0.990204
+train:  42%|████████████▌                 | 209/500 [3:10:21<4:27:22, 55.13s/it]train:  42%|████████████▌                 | 210/500 [3:11:13<4:20:51, 53.97s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+100827        0.000343   0.999184  0.001873   0.99102
+train:  42%|████████████▋                 | 211/500 [3:12:08<4:22:23, 54.47s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+101387        0.000009   0.996735  0.001862  0.990204
+train:  42%|████████████▋                 | 212/500 [3:13:04<4:22:41, 54.73s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+101949    3.147119e-07        1.0  0.001851   0.99102
+train:  43%|████████████▊                 | 213/500 [3:13:59<4:22:25, 54.86s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+102511        0.000006        1.0  0.00184  0.985306
+train:  43%|████████████▊                 | 214/500 [3:14:54<4:22:31, 55.08s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+103074        0.000008        1.0  0.00183  0.992653
+train:  43%|████████████▉                 | 215/500 [3:15:49<4:21:25, 55.04s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+103641         0.00028   0.999184  0.001819  0.992653
+train:  43%|████████████▉                 | 216/500 [3:16:44<4:20:26, 55.02s/it]train:  43%|█████████████                 | 217/500 [3:17:36<4:14:16, 53.91s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+104204        0.000229   0.999184  0.001808  0.987755
+train:  44%|█████████████                 | 218/500 [3:18:31<4:15:02, 54.26s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+104768        0.000002   0.999184  0.001797  0.990204
+train:  44%|█████████████▏                | 219/500 [3:19:26<4:15:24, 54.54s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+105332        0.000035   0.998367  0.001786  0.989388
+train:  44%|█████████████▏                | 220/500 [3:20:21<4:15:13, 54.69s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+105899    5.245207e-08        1.0  0.001775  0.986122
+train:  44%|█████████████▎                | 221/500 [3:21:16<4:14:34, 54.75s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+106464    7.915465e-07   0.999184  0.001764   0.99102
+train:  44%|█████████████▎                | 222/500 [3:22:11<4:14:11, 54.86s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+107027        0.000249   0.997551  0.001754  0.988571
+train:  45%|█████████████▍                | 223/500 [3:23:06<4:13:52, 54.99s/it]train:  45%|█████████████▍                | 224/500 [3:23:57<4:07:46, 53.86s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+107590    6.389575e-07        1.0  0.001743  0.986122
+train:  45%|█████████████▌                | 225/500 [3:24:53<4:08:47, 54.28s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+108153        0.000056   0.999184  0.001732  0.986122
+train:  45%|█████████████▌                | 226/500 [3:25:48<4:09:34, 54.65s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+108713        0.000001        1.0  0.001721  0.987755
+train:  45%|█████████████▌                | 227/500 [3:26:44<4:09:50, 54.91s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+109274        0.000003        1.0  0.00171  0.986939
+train:  46%|█████████████▋                | 228/500 [3:27:39<4:09:27, 55.03s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+109838        0.000461   0.999184  0.001699   0.98449
+train:  46%|█████████████▋                | 229/500 [3:28:34<4:08:18, 54.97s/it]train:  46%|█████████████▊                | 230/500 [3:29:25<4:02:23, 53.87s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+110402    2.479550e-07        1.0  0.001688  0.987755
+train:  46%|█████████████▊                | 231/500 [3:30:21<4:03:46, 54.37s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+110962         0.00001        1.0  0.001677  0.987755
+train:  46%|█████████████▉                | 232/500 [3:31:16<4:04:21, 54.71s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+111520        0.000033   0.998367  0.001666  0.985306
+train:  47%|█████████████▉                | 233/500 [3:32:12<4:04:35, 54.97s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+112083        0.000007        1.0  0.001655   0.98449
+train:  47%|██████████████                | 234/500 [3:33:07<4:04:17, 55.10s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+112644        0.000003   0.998367  0.001644   0.99102
+train:  47%|██████████████                | 235/500 [3:34:03<4:04:08, 55.28s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+113204        0.000275        1.0  0.001633  0.989388
+train:  47%|██████████████▏               | 236/500 [3:34:58<4:03:42, 55.39s/it]train:  47%|██████████████▏               | 237/500 [3:35:50<3:57:49, 54.26s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+113762        0.000002        1.0  0.001622  0.990204
+train:  48%|██████████████▎               | 238/500 [3:36:46<3:58:52, 54.70s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+114320    8.869141e-07        1.0  0.001611  0.988571
+train:  48%|██████████████▎               | 239/500 [3:37:41<3:58:52, 54.92s/it]        Minibatch_Loss  Train_Acc     lr0  test_Acc
+114880        0.000022   0.998367  0.0016  0.987755
+train:  48%|██████████████▍               | 240/500 [3:38:36<3:57:16, 54.76s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+115458        0.000023   0.992653  0.001589  0.985306
+train:  48%|██████████████▍               | 241/500 [3:39:31<3:56:57, 54.89s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+116019        0.001069        1.0  0.001578  0.989388
+train:  48%|██████████████▌               | 242/500 [3:40:26<3:56:04, 54.90s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+116586        0.000008   0.999184  0.001567  0.988571
+train:  49%|██████████████▌               | 243/500 [3:41:21<3:55:19, 54.94s/it]train:  49%|██████████████▋               | 244/500 [3:42:12<3:50:04, 53.92s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+117146        0.007923        1.0  0.001556  0.990204
+train:  49%|██████████████▋               | 245/500 [3:43:08<3:50:51, 54.32s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+117710        0.000002        1.0  0.001545  0.987755
+train:  49%|██████████████▊               | 246/500 [3:44:03<3:51:01, 54.57s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+118273    9.822750e-07   0.999184  0.001534  0.988571
+train:  49%|██████████████▊               | 247/500 [3:44:58<3:51:11, 54.83s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+118834    1.430511e-08        1.0  0.001523  0.990204
+train:  50%|██████████████▉               | 248/500 [3:45:54<3:51:11, 55.04s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+119395        0.000023        1.0  0.001512  0.991837
+train:  50%|██████████████▉               | 249/500 [3:46:49<3:50:37, 55.13s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+119956    1.621245e-07        1.0  0.001501  0.989388
+train:  50%|███████████████               | 250/500 [3:47:44<3:50:03, 55.21s/it]train:  50%|███████████████               | 251/500 [3:48:36<3:44:07, 54.01s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+120519        0.000065   0.999184  0.00149  0.988571
+train:  50%|███████████████               | 252/500 [3:49:31<3:45:17, 54.51s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+121076        0.003893   0.999184  0.001479  0.990204
+train:  51%|███████████████▏              | 253/500 [3:50:27<3:45:30, 54.78s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+121639    3.671638e-07        1.0  0.001468   0.99102
+train:  51%|███████████████▏              | 254/500 [3:51:22<3:45:05, 54.90s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+122200    5.388247e-07        1.0  0.001457  0.990204
+train:  51%|███████████████▎              | 255/500 [3:52:18<3:45:08, 55.14s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+122762        0.000078        1.0  0.001446  0.988571
+train:  51%|███████████████▎              | 256/500 [3:53:13<3:44:29, 55.20s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+123321        0.000004        1.0  0.001435   0.99102
+train:  51%|███████████████▍              | 257/500 [3:54:09<3:44:03, 55.32s/it]train:  52%|███████████████▍              | 258/500 [3:55:00<3:38:43, 54.23s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+123880        0.000047   0.999184  0.001424  0.990204
+train:  52%|███████████████▌              | 259/500 [3:55:55<3:38:45, 54.46s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+124447    1.049041e-07        1.0  0.001413  0.990204
+train:  52%|███████████████▌              | 260/500 [3:56:50<3:38:45, 54.69s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+125010        0.000371        1.0  0.001402  0.990204
+train:  52%|███████████████▋              | 261/500 [3:57:46<3:38:22, 54.82s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+125574        0.000006   0.999184  0.001391  0.986939
+train:  52%|███████████████▋              | 262/500 [3:58:41<3:37:56, 54.94s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+126134    5.722044e-08        1.0  0.00138  0.987755
+train:  53%|███████████████▊              | 263/500 [3:59:36<3:37:52, 55.16s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+126693        0.000055        1.0  0.001369   0.99102
+train:  53%|███████████████▊              | 264/500 [4:00:32<3:37:22, 55.27s/it]train:  53%|███████████████▉              | 265/500 [4:01:23<3:31:36, 54.03s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+127257        0.000001        1.0  0.001358  0.985306
+train:  53%|███████████████▉              | 266/500 [4:02:18<3:31:55, 54.34s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+127822        0.000021   0.999184  0.001347  0.985306
+train:  53%|████████████████              | 267/500 [4:03:14<3:32:09, 54.63s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+128384        0.001448   0.999184  0.001336  0.986122
+train:  54%|████████████████              | 268/500 [4:04:09<3:31:47, 54.77s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+128945        0.000009        1.0  0.001325   0.99102
+train:  54%|████████████████▏             | 269/500 [4:05:04<3:31:53, 55.04s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+129508        0.000065        1.0  0.001314  0.990204
+train:  54%|████████████████▏             | 270/500 [4:05:59<3:31:11, 55.09s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+130071        0.000052   0.995918  0.001303  0.986122
+train:  54%|████████████████▎             | 271/500 [4:06:55<3:30:29, 55.15s/it]train:  54%|████████████████▎             | 272/500 [4:07:46<3:25:15, 54.01s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+130633        0.000743   0.999184  0.001292  0.989388
+train:  55%|████████████████▍             | 273/500 [4:08:41<3:25:41, 54.37s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+131196    4.386893e-07        1.0  0.001281  0.988571
+train:  55%|████████████████▍             | 274/500 [4:09:37<3:26:22, 54.79s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+131755    1.001357e-07        1.0  0.00127  0.989388
+train:  55%|████████████████▌             | 275/500 [4:10:32<3:25:44, 54.86s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+132319    8.106229e-08        1.0  0.001259   0.99102
+train:  55%|████████████████▌             | 276/500 [4:11:27<3:25:15, 54.98s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+132883        0.000001        1.0  0.001248   0.99102
+train:  55%|████████████████▌             | 277/500 [4:12:22<3:24:24, 55.00s/it]train:  56%|████████████████▋             | 278/500 [4:13:14<3:19:18, 53.87s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+133447    1.430511e-08   0.998367  0.001237  0.982857
+train:  56%|████████████████▋             | 279/500 [4:14:09<3:19:56, 54.28s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+134010        0.000166        1.0  0.001226  0.990204
+train:  56%|████████████████▊             | 280/500 [4:15:04<3:20:14, 54.61s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+134573        0.000002   0.999184  0.001216  0.990204
+train:  56%|████████████████▊             | 281/500 [4:15:59<3:19:26, 54.64s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+135138        0.000761        1.0  0.001205  0.988571
+train:  56%|████████████████▉             | 282/500 [4:16:55<3:19:32, 54.92s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+135699        0.000003        1.0  0.001194  0.991837
+train:  57%|████████████████▉             | 283/500 [4:17:50<3:18:52, 54.99s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+136261        0.000006   0.998367  0.001183  0.987755
+train:  57%|█████████████████             | 284/500 [4:18:45<3:18:27, 55.13s/it]train:  57%|█████████████████             | 285/500 [4:19:37<3:13:30, 54.00s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+136821    3.957734e-07        1.0  0.001172   0.99102
+train:  57%|█████████████████▏            | 286/500 [4:20:32<3:14:14, 54.46s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+137382    8.726050e-07        1.0  0.001162  0.990204
+train:  57%|█████████████████▏            | 287/500 [4:21:27<3:14:21, 54.75s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+137945        0.000017        1.0  0.001151  0.990204
+train:  58%|█████████████████▎            | 288/500 [4:22:23<3:13:49, 54.86s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+138511    2.098079e-07        1.0  0.00114  0.988571
+train:  58%|█████████████████▎            | 289/500 [4:23:18<3:13:02, 54.89s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+139076        0.000511   0.999184  0.001129  0.990204
+train:  58%|█████████████████▍            | 290/500 [4:24:13<3:12:27, 54.99s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+139633        0.000002        1.0  0.001119  0.987755
+train:  58%|█████████████████▍            | 291/500 [4:25:09<3:12:18, 55.21s/it]train:  58%|█████████████████▌            | 292/500 [4:26:00<3:07:07, 53.98s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+140198        0.000003        1.0  0.001108  0.988571
+train:  59%|█████████████████▌            | 293/500 [4:26:55<3:07:16, 54.28s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+140764    2.241132e-07        1.0  0.001097  0.989388
+train:  59%|█████████████████▋            | 294/500 [4:27:50<3:07:12, 54.52s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+141326        0.000004        1.0  0.001087  0.988571
+train:  59%|█████████████████▋            | 295/500 [4:28:45<3:07:15, 54.81s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+141888        0.000002        1.0  0.001076  0.988571
+train:  59%|█████████████████▊            | 296/500 [4:29:41<3:06:56, 54.98s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+142449    4.768371e-09        1.0  0.001066   0.99102
+train:  59%|█████████████████▊            | 297/500 [4:30:36<3:06:23, 55.09s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+143014        0.000037        1.0  0.001055  0.991837
+train:  60%|█████████████████▉            | 298/500 [4:31:31<3:05:24, 55.07s/it]train:  60%|█████████████████▉            | 299/500 [4:32:22<3:00:23, 53.85s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+143578    7.152555e-08        1.0  0.001044  0.986939
+train:  60%|██████████████████            | 300/500 [4:33:17<3:00:44, 54.22s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+144144        0.000257        1.0  0.001034  0.989388
+train:  60%|██████████████████            | 301/500 [4:34:12<3:01:02, 54.58s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+144702        0.000234        1.0  0.001023  0.990204
+train:  60%|██████████████████            | 302/500 [4:35:08<3:01:05, 54.87s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+145265        0.040717   0.999184  0.001013  0.990204
+train:  61%|██████████████████▏           | 303/500 [4:36:03<3:00:30, 54.98s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+145827    4.768371e-09        1.0  0.001003  0.989388
+train:  61%|██████████████████▏           | 304/500 [4:36:59<3:00:06, 55.14s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+146390    1.001357e-07        1.0  0.000992  0.989388
+train:  61%|██████████████████▎           | 305/500 [4:37:54<2:59:17, 55.17s/it]train:  61%|██████████████████▎           | 306/500 [4:38:46<2:54:54, 54.09s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+146949    3.862374e-07        1.0  0.000982  0.985306
+train:  61%|██████████████████▍           | 307/500 [4:39:41<2:55:27, 54.55s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+147510    5.435909e-07        1.0  0.000971  0.986939
+train:  62%|██████████████████▍           | 308/500 [4:40:36<2:55:10, 54.74s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+148074    4.529930e-07        1.0  0.000961  0.988571
+train:  62%|██████████████████▌           | 309/500 [4:41:32<2:54:47, 54.91s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+148635    9.536742e-09   0.999184  0.000951  0.990204
+train:  62%|██████████████████▌           | 310/500 [4:42:27<2:54:18, 55.04s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+149195        0.000001   0.997551  0.000941  0.987755
+train:  62%|██████████████████▋           | 311/500 [4:43:23<2:53:55, 55.21s/it]train:  62%|██████████████████▋           | 312/500 [4:44:13<2:48:50, 53.89s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+149761    3.194797e-07        1.0  0.00093  0.986939
+train:  63%|██████████████████▊           | 313/500 [4:45:09<2:49:21, 54.34s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+150323    7.152552e-08        1.0  0.00092  0.986939
+train:  63%|██████████████████▊           | 314/500 [4:46:04<2:49:30, 54.68s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+150883        0.000015   0.998367  0.00091  0.986939
+train:  63%|██████████████████▉           | 315/500 [4:47:00<2:49:05, 54.84s/it]        Minibatch_Loss  Train_Acc     lr0  test_Acc
+151448    9.536742e-09        1.0  0.0009  0.990204
+train:  63%|██████████████████▉           | 316/500 [4:47:55<2:48:26, 54.93s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+152011        0.000003        1.0  0.00089  0.991837
+train:  63%|███████████████████           | 317/500 [4:48:50<2:47:43, 54.99s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+152574        0.000415        1.0  0.00088  0.991837
+train:  64%|███████████████████           | 318/500 [4:49:45<2:47:22, 55.18s/it]train:  64%|███████████████████▏          | 319/500 [4:50:36<2:42:32, 53.88s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+153138    8.535314e-07        1.0  0.00087  0.989388
+train:  64%|███████████████████▏          | 320/500 [4:51:31<2:42:46, 54.26s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+153702    1.430511e-08        1.0  0.00086  0.990204
+train:  64%|███████████████████▎          | 321/500 [4:52:27<2:42:56, 54.62s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+154263    1.907348e-08   0.999184  0.00085   0.99102
+train:  64%|███████████████████▎          | 322/500 [4:53:22<2:42:32, 54.79s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+154826    6.675717e-08        1.0  0.00084  0.989388
+train:  65%|███████████████████▍          | 323/500 [4:54:17<2:42:08, 54.96s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+155385    4.005417e-07        1.0  0.00083  0.989388
+train:  65%|███████████████████▍          | 324/500 [4:55:13<2:41:58, 55.22s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+155945    8.582977e-07        1.0  0.00082   0.99102
+train:  65%|███████████████████▌          | 325/500 [4:56:09<2:41:23, 55.34s/it]train:  65%|███████████████████▌          | 326/500 [4:57:00<2:37:15, 54.23s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+156503    1.525877e-07        1.0  0.00081  0.989388
+train:  65%|███████████████████▌          | 327/500 [4:57:56<2:37:24, 54.59s/it]        Minibatch_Loss  Train_Acc     lr0  test_Acc
+157065    7.343259e-07        1.0  0.0008  0.985306
+train:  66%|███████████████████▋          | 328/500 [4:58:51<2:37:15, 54.86s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+157625    9.536742e-09        1.0  0.000791  0.992653
+train:  66%|███████████████████▋          | 329/500 [4:59:47<2:37:06, 55.13s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+158186    3.576271e-07        1.0  0.000781  0.988571
+train:  66%|███████████████████▊          | 330/500 [5:00:42<2:35:42, 54.96s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+158751    4.291532e-08        1.0  0.000771   0.99102
+train:  66%|███████████████████▊          | 331/500 [5:01:37<2:35:14, 55.11s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+159314    7.963101e-07        1.0  0.000762  0.988571
+train:  66%|███████████████████▉          | 332/500 [5:02:32<2:34:26, 55.16s/it]train:  67%|███████████████████▉          | 333/500 [5:03:24<2:30:18, 54.00s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+159876    4.768371e-09        1.0  0.000752  0.987755
+train:  67%|████████████████████          | 334/500 [5:04:19<2:30:31, 54.41s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+160435             0.0        1.0  0.000743  0.990204
+train:  67%|████████████████████          | 335/500 [5:05:15<2:30:37, 54.77s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+160996        0.000006        1.0  0.000733  0.989388
+train:  67%|████████████████████▏         | 336/500 [5:06:10<2:30:27, 55.05s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+161556    4.768371e-09        1.0  0.000724  0.989388
+train:  67%|████████████████████▏         | 337/500 [5:07:05<2:29:29, 55.03s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+162119    1.907346e-07        1.0  0.000714  0.989388
+train:  68%|████████████████████▎         | 338/500 [5:08:01<2:28:59, 55.18s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+162682    5.435907e-07        1.0  0.000705  0.987755
+train:  68%|████████████████████▎         | 339/500 [5:08:56<2:28:04, 55.18s/it]train:  68%|████████████████████▍         | 340/500 [5:09:47<2:24:03, 54.02s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+163244    3.337859e-08        1.0  0.000696  0.985306
+train:  68%|████████████████████▍         | 341/500 [5:10:43<2:24:03, 54.36s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+163808        0.000003        1.0  0.000686  0.987755
+train:  68%|████████████████████▌         | 342/500 [5:11:38<2:23:51, 54.63s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+164371    1.001358e-07        1.0  0.000677  0.986122
+train:  69%|████████████████████▌         | 343/500 [5:12:33<2:23:30, 54.85s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+164932        0.000003        1.0  0.000668  0.989388
+train:  69%|████████████████████▋         | 344/500 [5:13:29<2:23:07, 55.05s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+165496        0.000018        1.0  0.000659  0.986939
+train:  69%|████████████████████▋         | 345/500 [5:14:24<2:22:28, 55.15s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+166051    4.577623e-07        1.0  0.00065  0.990204
+train:  69%|████████████████████▊         | 346/500 [5:15:20<2:22:05, 55.36s/it]train:  69%|████████████████████▊         | 347/500 [5:16:11<2:17:59, 54.12s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+166614        0.000003        1.0  0.00064  0.989388
+train:  70%|████████████████████▉         | 348/500 [5:17:06<2:17:49, 54.41s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+167180    1.192091e-07        1.0  0.000631  0.988571
+train:  70%|████████████████████▉         | 349/500 [5:18:01<2:17:21, 54.58s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+167745    5.006769e-07        1.0  0.000622  0.991837
+train:  70%|█████████████████████         | 350/500 [5:18:56<2:16:47, 54.72s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+168306    1.430511e-08        1.0  0.000613  0.986939
+train:  70%|█████████████████████         | 351/500 [5:19:52<2:16:37, 55.01s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+168865        0.000447        1.0  0.000605   0.99102
+train:  70%|█████████████████████         | 352/500 [5:20:48<2:16:08, 55.19s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+169426        0.000003        1.0  0.000596  0.987755
+train:  71%|█████████████████████▏        | 353/500 [5:21:43<2:15:21, 55.25s/it]train:  71%|█████████████████████▏        | 354/500 [5:22:34<2:11:38, 54.10s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+169987    4.291532e-08   0.999184  0.000587  0.989388
+train:  71%|█████████████████████▎        | 355/500 [5:23:30<2:11:36, 54.46s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+170548             0.0        1.0  0.000578  0.990204
+train:  71%|█████████████████████▎        | 356/500 [5:24:25<2:11:40, 54.86s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+171106    8.106225e-08        1.0  0.00057  0.990204
+train:  71%|█████████████████████▍        | 357/500 [5:25:21<2:11:03, 54.99s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+171671             0.0        1.0  0.000561  0.988571
+train:  72%|█████████████████████▍        | 358/500 [5:26:16<2:10:17, 55.05s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+172236    6.341892e-07        1.0  0.000552  0.987755
+train:  72%|█████████████████████▌        | 359/500 [5:27:11<2:09:20, 55.04s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+172799    1.716610e-07        1.0  0.000544  0.990204
+train:  72%|█████████████████████▌        | 360/500 [5:28:06<2:08:36, 55.12s/it]train:  72%|█████████████████████▋        | 361/500 [5:28:58<2:04:58, 53.95s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+173362             0.0        1.0  0.000535  0.989388
+train:  72%|█████████████████████▋        | 362/500 [5:29:53<2:05:18, 54.48s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+173920    4.768370e-08        1.0  0.000527   0.99102
+train:  73%|█████████████████████▊        | 363/500 [5:30:49<2:04:59, 54.74s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+174482    5.245206e-08        1.0  0.000519  0.991837
+train:  73%|█████████████████████▊        | 364/500 [5:31:44<2:04:34, 54.96s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+175045        0.000012        1.0  0.00051  0.988571
+train:  73%|█████████████████████▉        | 365/500 [5:32:39<2:03:46, 55.01s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+175609        0.000178        1.0  0.000502   0.99102
+train:  73%|█████████████████████▉        | 366/500 [5:33:34<2:02:55, 55.04s/it]train:  73%|██████████████████████        | 367/500 [5:34:26<1:59:42, 54.00s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+176168        0.000003        1.0  0.000494  0.989388
+train:  74%|██████████████████████        | 368/500 [5:35:21<1:59:27, 54.30s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+176735    3.337859e-08        1.0  0.000486  0.990204
+train:  74%|██████████████████████▏       | 369/500 [5:36:16<1:59:02, 54.52s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+177298        0.000002        1.0  0.000478  0.991837
+train:  74%|██████████████████████▏       | 370/500 [5:37:12<1:58:56, 54.90s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+177854    3.337859e-08        1.0  0.00047   0.99102
+train:  74%|██████████████████████▎       | 371/500 [5:38:07<1:58:32, 55.14s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+178417        0.000083   0.999184  0.000462  0.990204
+train:  74%|██████████████████████▎       | 372/500 [5:39:03<1:57:37, 55.14s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+178974        0.000002        1.0  0.000454   0.99102
+train:  75%|██████████████████████▍       | 373/500 [5:39:58<1:57:11, 55.37s/it]train:  75%|██████████████████████▍       | 374/500 [5:40:50<1:53:54, 54.24s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+179533    4.339207e-07        1.0  0.000446  0.992653
+train:  75%|██████████████████████▌       | 375/500 [5:41:45<1:53:45, 54.60s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+180094    1.049041e-07   0.999184  0.000438   0.99102
+train:  75%|██████████████████████▌       | 376/500 [5:42:41<1:53:22, 54.86s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+180655    6.914111e-07        1.0  0.00043   0.99102
+train:  75%|██████████████████████▌       | 377/500 [5:43:36<1:52:47, 55.02s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+181216    1.049041e-07        1.0  0.000423  0.991837
+train:  76%|██████████████████████▋       | 378/500 [5:44:32<1:52:20, 55.25s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+181773    1.382825e-07        1.0  0.000415  0.991837
+train:  76%|██████████████████████▋       | 379/500 [5:45:28<1:51:33, 55.32s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+182340             0.0        1.0  0.000407  0.990204
+train:  76%|██████████████████████▊       | 380/500 [5:46:23<1:50:24, 55.20s/it]train:  76%|██████████████████████▊       | 381/500 [5:47:14<1:47:05, 53.99s/it]        Minibatch_Loss  Train_Acc     lr0  test_Acc
+182902    1.907348e-08        1.0  0.0004  0.991837
+train:  76%|██████████████████████▉       | 382/500 [5:48:09<1:47:04, 54.44s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+183462        0.000089        1.0  0.000392  0.992653
+train:  77%|██████████████████████▉       | 383/500 [5:49:04<1:46:37, 54.68s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+184025    9.536743e-09        1.0  0.000385  0.991837
+train:  77%|███████████████████████       | 384/500 [5:50:00<1:46:13, 54.94s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+184586             0.0        1.0  0.000378  0.991837
+train:  77%|███████████████████████       | 385/500 [5:50:55<1:45:32, 55.06s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+185150    3.337860e-08        1.0  0.00037  0.991837
+train:  77%|███████████████████████▏      | 386/500 [5:51:51<1:44:42, 55.11s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+185711    2.384185e-08        1.0  0.000363  0.991837
+train:  77%|███████████████████████▏      | 387/500 [5:52:46<1:44:00, 55.23s/it]train:  78%|███████████████████████▎      | 388/500 [5:53:37<1:40:37, 53.90s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+186278    4.768371e-09        1.0  0.000356  0.990204
+train:  78%|███████████████████████▎      | 389/500 [5:54:32<1:40:26, 54.30s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+186840    5.149830e-07        1.0  0.000349   0.99102
+train:  78%|███████████████████████▍      | 390/500 [5:55:28<1:40:10, 54.64s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+187406    1.001357e-07        1.0  0.000342  0.989388
+train:  78%|███████████████████████▍      | 391/500 [5:56:22<1:39:21, 54.69s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+187971    6.675716e-08        1.0  0.000335  0.990204
+train:  78%|███████████████████████▌      | 392/500 [5:57:18<1:38:42, 54.84s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+188534             0.0        1.0  0.000328  0.991837
+train:  79%|███████████████████████▌      | 393/500 [5:58:13<1:37:56, 54.92s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+189099    3.147119e-07        1.0  0.000321  0.991837
+train:  79%|███████████████████████▋      | 394/500 [5:59:08<1:37:08, 54.98s/it]train:  79%|███████████████████████▋      | 395/500 [5:59:59<1:34:26, 53.97s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+189658        0.000006   0.999184  0.000314   0.99102
+train:  79%|███████████████████████▊      | 396/500 [6:00:55<1:34:16, 54.39s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+190220    1.144408e-07        1.0  0.000307  0.990204
+train:  79%|███████████████████████▊      | 397/500 [6:01:50<1:33:46, 54.62s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+190781    1.430511e-08        1.0  0.000301  0.989388
+train:  80%|███████████████████████▉      | 398/500 [6:02:45<1:33:21, 54.92s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+191343    9.536737e-08        1.0  0.000294   0.99102
+train:  80%|███████████████████████▉      | 399/500 [6:03:41<1:32:37, 55.02s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+191908        0.000001        1.0  0.000288  0.990204
+train:  80%|████████████████████████      | 400/500 [6:04:36<1:31:46, 55.06s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+192469        0.000001        1.0  0.000281   0.99102
+train:  80%|████████████████████████      | 401/500 [6:05:31<1:31:00, 55.15s/it]train:  80%|████████████████████████      | 402/500 [6:06:23<1:28:12, 54.00s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+193031    5.006763e-07        1.0  0.000275  0.993469
+train:  81%|████████████████████████▏     | 403/500 [6:07:18<1:27:56, 54.40s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+193594    2.384185e-08        1.0  0.000268   0.99102
+train:  81%|████████████████████████▏     | 404/500 [6:08:13<1:27:21, 54.60s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+194158        0.000007        1.0  0.000262  0.993469
+train:  81%|████████████████████████▎     | 405/500 [6:09:08<1:26:47, 54.82s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+194716    5.197515e-07        1.0  0.000256  0.990204
+train:  81%|████████████████████████▎     | 406/500 [6:10:04<1:26:20, 55.11s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+195279    9.536742e-09        1.0  0.00025  0.991837
+train:  81%|████████████████████████▍     | 407/500 [6:10:59<1:25:31, 55.18s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+195837    7.104811e-07        1.0  0.000244  0.991837
+train:  82%|████████████████████████▍     | 408/500 [6:11:55<1:24:50, 55.33s/it]train:  82%|████████████████████████▌     | 409/500 [6:12:46<1:22:04, 54.11s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+196399    8.010821e-07        1.0  0.000238  0.991837
+train:  82%|████████████████████████▌     | 410/500 [6:13:42<1:21:42, 54.47s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+196962        0.000069        1.0  0.000232   0.99102
+train:  82%|████████████████████████▋     | 411/500 [6:14:37<1:21:22, 54.85s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+197519             0.0        1.0  0.000226   0.99102
+train:  82%|████████████████████████▋     | 412/500 [6:15:33<1:20:43, 55.04s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+198081        0.000007        1.0  0.00022   0.99102
+train:  83%|████████████████████████▊     | 413/500 [6:16:28<1:19:59, 55.17s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+198642    4.768371e-09        1.0  0.000215  0.992653
+train:  83%|████████████████████████▊     | 414/500 [6:17:24<1:19:08, 55.21s/it]train:  83%|████████████████████████▉     | 415/500 [6:18:15<1:16:41, 54.14s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+199201    9.965842e-07        1.0  0.000209   0.99102
+train:  83%|████████████████████████▉     | 416/500 [6:19:11<1:16:21, 54.54s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+199763    5.722045e-08        1.0  0.000203  0.991837
+train:  83%|█████████████████████████     | 417/500 [6:20:06<1:15:53, 54.87s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+200321    4.911399e-07        1.0  0.000198   0.99102
+train:  84%|█████████████████████████     | 418/500 [6:21:02<1:15:11, 55.02s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+200883        0.000006        1.0  0.000192  0.992653
+train:  84%|█████████████████████████▏    | 419/500 [6:21:57<1:14:25, 55.12s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+201445    4.434562e-07        1.0  0.000187  0.991837
+train:  84%|█████████████████████████▏    | 420/500 [6:22:53<1:13:34, 55.18s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+202009    2.241129e-07        1.0  0.000182  0.991837
+train:  84%|█████████████████████████▎    | 421/500 [6:23:48<1:12:39, 55.19s/it]train:  84%|█████████████████████████▎    | 422/500 [6:24:39<1:10:22, 54.13s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+202568             0.0        1.0  0.000176   0.99102
+train:  85%|█████████████████████████▍    | 423/500 [6:25:35<1:10:00, 54.55s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+203129    3.814696e-08        1.0  0.000171  0.990204
+train:  85%|█████████████████████████▍    | 424/500 [6:26:30<1:09:24, 54.79s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+203691             0.0        1.0  0.000166   0.99102
+train:  85%|█████████████████████████▌    | 425/500 [6:27:26<1:08:42, 54.96s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+204258        0.000003        1.0  0.000161  0.992653
+train:  85%|█████████████████████████▌    | 426/500 [6:28:20<1:07:41, 54.88s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+204820    2.384186e-08        1.0  0.000156  0.991837
+train:  85%|█████████████████████████▌    | 427/500 [6:29:16<1:06:55, 55.01s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+205379             0.0        1.0  0.000151   0.99102
+train:  86%|█████████████████████████▋    | 428/500 [6:30:11<1:06:16, 55.23s/it]train:  86%|█████████████████████████▋    | 429/500 [6:31:03<1:03:59, 54.08s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+205940    3.814696e-08        1.0  0.000147  0.989388
+train:  86%|█████████████████████████▊    | 430/500 [6:31:58<1:03:29, 54.42s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+206503    5.245208e-08        1.0  0.000142  0.991837
+train:  86%|█████████████████████████▊    | 431/500 [6:32:53<1:02:51, 54.66s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+207065    4.768371e-09        1.0  0.000137  0.989388
+train:  86%|█████████████████████████▉    | 432/500 [6:33:49<1:02:10, 54.87s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+207628    4.720664e-07        1.0  0.000133   0.99102
+train:  87%|█████████████████████████▉    | 433/500 [6:34:44<1:01:29, 55.06s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+208187             0.0        1.0  0.000128   0.99102
+train:  87%|██████████████████████████    | 434/500 [6:35:40<1:00:44, 55.22s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+208745    2.574913e-07        1.0  0.000124  0.988571
+train:  87%|███████████████████████████▊    | 435/500 [6:36:35<59:57, 55.34s/it]train:  87%|███████████████████████████▉    | 436/500 [6:37:27<57:43, 54.12s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+209307    1.716610e-07        1.0  0.000119  0.989388
+train:  87%|███████████████████████████▉    | 437/500 [6:38:22<57:18, 54.58s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+209866        0.000002        1.0  0.000115  0.990204
+train:  88%|████████████████████████████    | 438/500 [6:39:17<56:32, 54.72s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+210431    1.096725e-07        1.0  0.000111   0.99102
+train:  88%|████████████████████████████    | 439/500 [6:40:12<55:45, 54.85s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+210996    2.050395e-07        1.0  0.000107  0.990204
+train:  88%|████████████████████████████▏   | 440/500 [6:41:07<54:54, 54.90s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+211563    2.384185e-08        1.0  0.000103   0.99102
+train:  88%|████████████████████████████▏   | 441/500 [6:42:03<54:02, 54.96s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+212127        0.000186        1.0  0.000099   0.99102
+train:  88%|████████████████████████████▎   | 442/500 [6:42:58<53:11, 55.03s/it]train:  89%|████████████████████████████▎   | 443/500 [6:43:49<51:07, 53.82s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+212692    3.337859e-08        1.0  0.000095  0.992653
+train:  89%|████████████████████████████▍   | 444/500 [6:44:44<50:44, 54.37s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+213250    4.768371e-09        1.0  0.000091   0.99102
+train:  89%|████████████████████████████▍   | 445/500 [6:45:40<50:04, 54.62s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+213813    1.907348e-08        1.0  0.000087  0.990204
+train:  89%|████████████████████████████▌   | 446/500 [6:46:35<49:25, 54.91s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+214372    4.768371e-09        1.0  0.000084   0.99102
+train:  89%|████████████████████████████▌   | 447/500 [6:47:31<48:40, 55.11s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+214936             0.0        1.0  0.00008  0.988571
+train:  90%|████████████████████████████▋   | 448/500 [6:48:26<47:45, 55.10s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+215503        0.000005        1.0  0.000076  0.990204
+train:  90%|████████████████████████████▋   | 449/500 [6:49:21<46:45, 55.01s/it]train:  90%|████████████████████████████▊   | 450/500 [6:50:12<44:56, 53.94s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+216062    4.291533e-08        1.0  0.000073  0.988571
+train:  90%|████████████████████████████▊   | 451/500 [6:51:07<44:24, 54.38s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+216626             0.0        1.0  0.00007   0.99102
+train:  90%|████████████████████████████▉   | 452/500 [6:52:03<43:43, 54.65s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+217189    4.768371e-09        1.0  0.000066  0.990204
+train:  91%|████████████████████████████▉   | 453/500 [6:52:58<42:56, 54.82s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+217751             0.0        1.0  0.000063  0.991837
+train:  91%|█████████████████████████████   | 454/500 [6:53:53<42:08, 54.97s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+218311             0.0        1.0  0.00006  0.991837
+train:  91%|█████████████████████████████   | 455/500 [6:54:49<41:25, 55.23s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+218871    3.194799e-07        1.0  0.000057  0.990204
+train:  91%|█████████████████████████████▏  | 456/500 [6:55:44<40:30, 55.24s/it]train:  91%|█████████████████████████████▏  | 457/500 [6:56:36<38:47, 54.13s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+219431        0.000002        1.0  0.000054  0.992653
+train:  92%|█████████████████████████████▎  | 458/500 [6:57:31<38:11, 54.56s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+219989    4.768371e-09        1.0  0.000051  0.991837
+train:  92%|█████████████████████████████▍  | 459/500 [6:58:27<37:28, 54.84s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+220552             0.0        1.0  0.000048  0.990204
+train:  92%|█████████████████████████████▍  | 460/500 [6:59:22<36:38, 54.97s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+221114    1.907348e-08        1.0  0.000046  0.989388
+train:  92%|█████████████████████████████▌  | 461/500 [7:00:17<35:45, 55.01s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+221677        0.000005        1.0  0.000043  0.991837
+train:  92%|█████████████████████████████▌  | 462/500 [7:01:13<34:55, 55.14s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+222239        0.000002        1.0  0.00004  0.991837
+train:  93%|█████████████████████████████▋  | 463/500 [7:02:08<34:02, 55.21s/it]train:  93%|█████████████████████████████▋  | 464/500 [7:02:59<32:23, 54.00s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+222803    4.768371e-09        1.0  0.000038  0.989388
+train:  93%|█████████████████████████████▊  | 465/500 [7:03:54<31:41, 54.33s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+223365    4.291534e-08        1.0  0.000035  0.993469
+train:  93%|█████████████████████████████▊  | 466/500 [7:04:50<31:02, 54.78s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+223927    1.001357e-07        1.0  0.000033   0.99102
+train:  93%|█████████████████████████████▉  | 467/500 [7:05:45<30:12, 54.91s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+224489    4.768371e-09        1.0  0.000031  0.991837
+train:  94%|█████████████████████████████▉  | 468/500 [7:06:41<29:19, 54.97s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+225056             0.0        1.0  0.000029  0.992653
+train:  94%|██████████████████████████████  | 469/500 [7:07:36<28:24, 54.99s/it]train:  94%|██████████████████████████████  | 470/500 [7:08:27<26:53, 53.78s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+225621        0.000002        1.0  0.000026  0.992653
+train:  94%|██████████████████████████████▏ | 471/500 [7:09:22<26:13, 54.24s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+226182             0.0        1.0  0.000024   0.99102
+train:  94%|██████████████████████████████▏ | 472/500 [7:10:17<25:29, 54.64s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+226744    3.814695e-08        1.0  0.000023   0.99102
+train:  95%|██████████████████████████████▎ | 473/500 [7:11:13<24:40, 54.84s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+227304    4.768371e-09        1.0  0.000021   0.99102
+train:  95%|██████████████████████████████▎ | 474/500 [7:12:08<23:51, 55.06s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+227870    9.250534e-07        1.0  0.000019  0.990204
+train:  95%|██████████████████████████████▍ | 475/500 [7:13:03<22:53, 54.96s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+228434    2.861022e-08        1.0  0.000017  0.991837
+train:  95%|██████████████████████████████▍ | 476/500 [7:13:58<22:00, 55.01s/it]train:  95%|██████████████████████████████▌ | 477/500 [7:14:49<20:39, 53.89s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+228997    4.768371e-09        1.0  0.000016  0.990204
+train:  96%|██████████████████████████████▌ | 478/500 [7:15:45<19:54, 54.31s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+229559    1.764294e-07        1.0  0.000014   0.99102
+train:  96%|██████████████████████████████▋ | 479/500 [7:16:40<19:07, 54.66s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+230121        0.000003        1.0  0.000013  0.989388
+train:  96%|██████████████████████████████▋ | 480/500 [7:17:35<18:16, 54.84s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+230680    4.768371e-09        1.0  0.000011  0.990204
+train:  96%|██████████████████████████████▊ | 481/500 [7:18:31<17:27, 55.12s/it]        Minibatch_Loss  Train_Acc      lr0  test_Acc
+231241        0.000002        1.0  0.00001   0.99102
+train:  96%|██████████████████████████████▊ | 482/500 [7:19:27<16:35, 55.31s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+231800    4.768371e-09        1.0  0.000009  0.989388
+train:  97%|██████████████████████████████▉ | 483/500 [7:20:22<15:40, 55.32s/it]train:  97%|██████████████████████████████▉ | 484/500 [7:21:14<14:25, 54.12s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+232361    4.768371e-09        1.0  0.000007  0.990204
+train:  97%|███████████████████████████████ | 485/500 [7:22:09<13:37, 54.49s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+232925    1.430511e-08        1.0  0.000006  0.990204
+train:  97%|███████████████████████████████ | 486/500 [7:23:03<12:42, 54.47s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+233496    9.536743e-09        1.0  0.000005  0.992653
+train:  97%|███████████████████████████████▏| 487/500 [7:23:59<11:50, 54.65s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+234055             0.0        1.0  0.000005   0.99102
+train:  98%|███████████████████████████████▏| 488/500 [7:24:54<10:59, 54.96s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+234616        0.000003        1.0  0.000004  0.990204
+train:  98%|███████████████████████████████▎| 489/500 [7:25:50<10:07, 55.20s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+235177    7.343253e-07        1.0  0.000003  0.991837
+train:  98%|███████████████████████████████▎| 490/500 [7:26:45<09:11, 55.19s/it]train:  98%|███████████████████████████████▍| 491/500 [7:27:37<08:06, 54.10s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+235737    6.675715e-08        1.0  0.000003   0.99102
+train:  98%|███████████████████████████████▍| 492/500 [7:28:32<07:16, 54.57s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+236296             0.0        1.0  0.000003  0.990204
+train:  99%|███████████████████████████████▌| 493/500 [7:29:28<06:23, 54.84s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+236855             0.0        1.0  0.000003  0.988571
+train:  99%|███████████████████████████████▌| 494/500 [7:30:24<05:31, 55.20s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+237414             0.0        1.0  0.000003  0.992653
+train:  99%|███████████████████████████████▋| 495/500 [7:31:19<04:36, 55.20s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+237976        0.000003        1.0  0.000003  0.991837
+train:  99%|███████████████████████████████▋| 496/500 [7:32:15<03:41, 55.26s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+238537    8.344565e-07        1.0  0.000003  0.991837
+train:  99%|███████████████████████████████▊| 497/500 [7:33:10<02:45, 55.30s/it]train: 100%|███████████████████████████████▊| 498/500 [7:34:01<01:48, 54.11s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+239098    9.155169e-07        1.0  0.000003  0.991837
+train: 100%|███████████████████████████████▉| 499/500 [7:34:57<00:54, 54.56s/it]        Minibatch_Loss  Train_Acc       lr0  test_Acc
+239657             0.0        1.0  0.000003   0.99102
+train: 100%|████████████████████████████████| 500/500 [7:35:52<00:00, 54.74s/it]train: 100%|████████████████████████████████| 500/500 [7:35:52<00:00, 54.71s/it]
+        Minibatch_Loss  Train_Acc       lr0  test_Acc
+239999             NaN        1.0  0.000003  0.991837
