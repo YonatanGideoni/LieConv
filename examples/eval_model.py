@@ -76,10 +76,10 @@ def makeGraph(x, y, group, nbhd_size, liftsamples, use_dist=True):
     if use_dist:
         # Use the pairs to extract distances
         edge_attr = distances[edge_pairs[0],
-                              edge_pairs[1]][:, None]
+        edge_pairs[1]][:, None]
     else:
         edge_attr = pairs_abq[0, edge_pairs[0],
-                              edge_pairs[1]]
+        edge_pairs[1]]
     edge_pairs, edge_attr = to_undirected(edge_pairs, edge_attr,
                                           reduce='mean')
     # include information about the actual pixel coordinates
@@ -204,7 +204,8 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
     model_trainer: Trainer = trainer(model, dataloaders, opt_constr, lr_sched, **trainer_config)
     model_trainer.load_checkpoint(os.path.join('runs', 'mnistSO2_GCN', 'checkpoints', 'c500.state'))
 
-    print()
+    print(model_trainer.metrics(dataloaders['Train']),
+          model_trainer.metrics(dataloaders['Test']))
 
 
 if __name__ == "__main__":
