@@ -147,32 +147,41 @@ def prepareImgToGraph(data, group, nbhd, liftsamples, use_dist=True):
     return makeGraph(z, y, group, nbhd, liftsamples, use_dist)
 
 
+def load_data(datasets, net_config, use_dist, test_inds=None):
+    graph_data = {}
+    # Convert the datasets to graphs:
+    for split, data in datasets.items():
+        print(f"Converting split {split}")
+        if split == 'test' and test_inds is not None:
+            indices = range(*test_inds)
+        else:
+            indices = range(len(data))
+        graph_data[split] = [prepareImgToGraph(
+            data[idx],
+            net_config['group'], net_config['nbhd'],
+            net_config['liftsamples'], use_dist=use_dist)
+            for idx in tqdm(indices)]
+
+    return graph_data
+
+
 def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
                 num_epochs=100, bs=50, lr=3e-3,
                 optim=Adam, device='cuda', trainer=Classifier,
                 split={'train': 12000}, small_test=False,
                 net_config={}, opt_config={}, use_test=True,
                 trainer_config={'log_dir': None}, use_dist=True):
+    # Add some extra defaults if SGD is chosen
+    opt_constr = partial(optim, lr=lr, **opt_config)
+    lr_sched = cosLr(num_epochs)
+
     # Prep the datasets splits, model, and dataloaders
     datasets = split_dataset(dataset(f'~/datasets/{dataset}/'),
                              splits=split)
     if use_test:
         datasets['test'] = dataset(f'~/datasets/{dataset}/', train=False)
-    graph_data = {}
-    print("Converting to graphs, this might take a while...")
-    # Convert the datasets to graphs:
-    for split, data in datasets.items():
-        print(f"Converting split {split}")
-        if split == 'test' and small_test:
-            # have to manually limit size
-            data = [data[idx] for idx in range(64)]
-        graph_data[split] = [prepareImgToGraph(
-            data[idx],
-            net_config['group'], net_config['nbhd'],
-            net_config['liftsamples'], use_dist=use_dist)
-            for idx in tqdm(range(len(data)))]
-    print("Done converting to graphs!\n")
-    # visualiseGraphImg(graph_data['train'][3], 500)
+
+    graph_data = load_data(datasets, net_config, use_dist, test_inds=(0, 0))
 
     if use_dist:
         net_config['edge_dim'] = 1
@@ -197,15 +206,30 @@ def makeTrainer(*, dataset=MnistRotDataset, network=ImgLieGNN,
     if small_test:
         dataloaders['Test'] = islice(dataloaders['test'],
                                      1 + len(dataloaders['train']) // 10)
-    # Add some extra defaults if SGD is chosen
-    opt_constr = partial(optim, lr=lr, **opt_config)
-    lr_sched = cosLr(num_epochs)
 
     model_trainer: Trainer = trainer(model, dataloaders, opt_constr, lr_sched, **trainer_config)
     model_trainer.load_checkpoint(os.path.join('runs', 'mnistSO2_GCN', 'checkpoints', 'c500.state'))
 
-    print(model_trainer.metrics(dataloaders['Train']),
-          model_trainer.metrics(dataloaders['Test']))
+    print('Starting to calculate test accuracy')
+    n_samples_checked = 0
+    batches_size = 10 ** 3
+    sum_acc = 0
+    for start_ind in range(0, len(datasets['test']), batches_size):
+        graph_data = load_data({'test': datasets['test']}, net_config, use_dist,
+                               test_inds=(start_ind, start_ind + batches_size))
+        dataloaders = {
+            k: LoaderTo(
+                torch_geometric.loader.DataLoader(
+                    v, batch_size=bs, shuffle=(k == 'train'),
+                    num_workers=0, pin_memory=False),
+                device) for k, v in graph_data.items()
+        }
+
+        sum_acc += model_trainer.metrics(dataloaders['test'])['Acc'] * batches_size
+        n_samples_checked += batches_size
+
+        print(f'Checked {n_samples_checked} / {len(datasets["test"])}, '
+              f'acc: {sum_acc / n_samples_checked:.5f}')
 
 
 if __name__ == "__main__":
