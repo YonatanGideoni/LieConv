@@ -1,0 +1,17 @@
+Converting to graphs, this might take a while...
+Converting split train
+  0%|                                                 | 0/12000 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "examples/train_gnn_img.py", line 179, in <module>
+    Trial(argupdated_config(defaults,namespace=(lieConv,lieGroups,graphConv)))
+  File "/home/kdb36/LieConv/oil/tuning/study.py", line 192, in __call__
+    trainer = self.make_trainer(**cfg)
+  File "examples/train_gnn_img.py", line 147, in makeTrainer
+    graph_data[split]  = [prepareImgToGraph(data[idx], net_config['group'], 
+  File "examples/train_gnn_img.py", line 147, in <listcomp>
+    graph_data[split]  = [prepareImgToGraph(data[idx], net_config['group'], 
+  File "examples/train_gnn_img.py", line 126, in prepareImgToGraph
+    return makeGraph(z, y, group, nbhd, liftsamples)  
+  File "examples/train_gnn_img.py", line 51, in makeGraph
+    distances[mask] = float('inf')
+IndexError: The shape of the mask [648, 648] at index 0 does not match the shape of the indexed tensor [1296, 1296] at index 0
+  0%|                                                 | 0/12000 [00:01<?, ?it/s]
